@@ -638,3 +638,698 @@ class Point:
 - Slots are not inherited unless explicitly redefined 
 -  Saves memory for millions of small objects.
 -  You can’t dynamically add new attributes 
+
+
+need to:
+inner joins
+sql based questions
+ml algorithms
+aws certification based questions.
+
+
+META programming:
+the program tries to modify another part of the program at compile time.
+
+META CLASS:
+a metaclass is a class whose instances are classes. 
+- In Python, classes are instances of metaclasses 
+-  Used for enforcing patterns, validation, ORM models (like Django models).
+
+ex:
+class Meta(type):
+    def __new__(cls, name, bases, dct):
+        print(f"Creating class {name}")
+        return super().__new__(cls, name, bases, dct)
+
+class MyClass(metaclass=Meta):
+    pass
+
+DECORATOR:
+a decorator function is used to alter an functionality in a method,
+a decorator takes another function as its argument, and returns yet another function .
+
+used to:
+1. a decorator can be used to add changes to a function (any type of changes),
+2.  manipulate the arguments, perform checks using arguments.
+
+
+ex:
+assumtion while using decorator: wrapper function executes before the outer function.
+
+#decorator function
+
+def Function1(func):
+    var1 = 1
+    def wrap(*args,**kwargs):
+        print('function ran -',str(args))
+        return func(*args,**kwargs)
+    return wrap
+
+# main function
+
+@Function1
+def print1(hg, bj):
+    c = hg + bj
+    print('helloworld - '+str(hg))
+
+-> print1()
+
+--------------------------------------------- decorator class--------------------------------
+
+__call__ method:
+
+The __call__ method enables Python programmers to write classes where the instances behave like functions and can be called like a function. 
+
+ex:
+class decorator_class(object):
+    def __init__(self, func):
+        self.func = func  # store in class
+
+    def __call__(self, *args, **kwargs):  # works as wrapper
+        print('wrapper function called')
+        return self.func(*args, **kwargs)
+
+
+@decorator_class
+def display():
+    print('display function ran')
+
+
+GENERATOR:
+it can be used as iterators, which uses lesser memory
+ allows you to make an iterator in a fast, easy, and clean way.
+
+ they use the yield statement whenever they want to return data. Each time next() is called, the generator resumes where it left off.
+
+
+example:
+def generator(value):  # value can be list or num
+    for i in range(value):
+          mdict  = {
+                    'name':"rand_name",
+                    'age' :"rand_age"
+                       }
+          yield mdict
+
+gen = generator(100)
+print(next(gen))
+
+example In list comprehension:
+
+nums = (x*x for x in [12,2,34,4,5])
+------------------------------------------------------------------------------------
+
+
+python iterator vs generators:
+
+iterator:
+used to iterate over an object like list or array. objects enclosed with iter() return and iterator object. "next()" can be used to get the next value in the iterator.
+
+generator:
+"yield" passes the loop, using a generator you can create an iterator to  generate next element of an iterable object when needed or called.
+
+
+
+design pattern:
+a design pattern is a template of code with showcases the design of the project. it focuses on class creation pattern, object creation pattern, inheritance
+
+types:
+creational: 
+Creational patterns provides essential information regarding the Class instantiation or the object instantiation
+
+structural: its about organizing different classes and objects to form larger structures, providing new functionalities  while keeping those structures efficient. uses: inheritance
+
+behaviorial:
+Behavioral patterns are all about identifying the common communication patterns between objects and realize these patterns.
+
+
+
+Factory Method is a Creational Design Pattern that allows an interface or a class to create an object, but lets subclasses decide which class or object to instantiate. Using the Factory method, we have the best ways to create an object. Here, objects are created without exposing the logic to the client, and for creating the new type of object, the client uses the same common interface.
+
+uses:
+We can easily add new types of products without disturbing the existing client code.
+Generally, tight coupling is being avoided between the products and the creator classes and objects.
+
+Singleton Method:
+It is a way to create one and only one object of a particular type. the state of that object is shared by all the instances of the object created.
+
+if an value of variable of an object is changed, the value of all previously created object will be updated.
+
+example:
+database connection: there has to one and only connection if there are multiple connections may degrade performance.
+
+EXAMPLE:
+# Singleton Borg pattern
+class Borg:
+
+	# state shared by each instance
+	__shared_state = dict()
+
+	# constructor method
+	def __init__(self):
+
+		self.__dict__ = self.__shared_state
+		self.state = 'GeeksforGeeks'
+
+	def __str__(self):
+
+		return self.state
+
+# main method
+if __name__ == "__main__":
+
+	person1 = Borg() # object of class Borg
+	person2 = Borg() # object of class Borg
+	person3 = Borg() # object of class Borg
+
+	person1.state = 'DataStructures' # person1 changed the state
+	person2.state = 'Algorithms'	 # person2 changed the state
+
+	print(person1) # output --> Algorithms
+	print(person2) # output --> Algorithms
+
+	person3.state = 'Geeks' # person3 changed the
+						# the shared state
+
+	print(person1) # output --> Geeks
+	print(person2) # output --> Geeks
+	print(person3) # output --> Geeks
+
+
+--------------------------concurrency and parallelism ---------------------------
+1. What’s the difference between concurrency and parallelism? 
+
+Concurrency:
+Structuring code to handle multiple tasks at once (even if not simultaneously)
+ex:
+Async I/O, coroutines
+
+
+Parallelism:
+Running multiple tasks at the same time on multiple CPU cores
+ex:
+Multiprocessing, GPU compute
+
+difference between multithreading and multiprocessing ?
+
+Multithreading
+Multiple threads share the same memory space within one process.
+used for : I/O-bound tasks
+
+
+Multiprocessing
+Multiple processes, each with its own Python interpreter and memory space.
+used for: CPU-bound tasks
+
+
+Why is Python’s multithreading limited by the GIL? 
+This makes multithreading ineffective for CPU-bound tasks but useful for I/O-bound tasks. 
+
+How do you bypass the GIL for parallel processing?
+Use:
+multiprocessing (spawns separate processes)
+Native extensions in C/Cython
+Libraries like NumPy, TensorFlow (perform C-level computations)
+
+Threading:
+✅ Great for I/O tasks (network calls, disk I/O).
+❌ Not ideal for CPU-heavy computations due to GIL. 
+
+how is threading lock used:
+a threading lock (also known as a mutex, short for mutual exclusion) is used to prevent multiple threads from accessing shared resources at the same time. 
+
+What’s a daemon thread? 
+A background thread that ends automatically when the main program exits.
+t = threading.Thread(target=worker, daemon=True)
+
+How do you pass data between threads? 
+Use queue.Queue() — thread-safe FIFO. 
+
+Why use multiprocessing instead of threading?
+It creates separate processes, each with its own Python interpreter and GIL, enabling true parallelism.
+
+How to share data between processes? 
+Use multiprocessing.Queue or multiprocessing.Manager()
+Avoid global variables (each process has its own memory)
+This is a modern approach — true shared memory for NumPy arrays or large data buffers. 
+
+ex:
+from multiprocessing import Manager
+m = Manager()
+shared_dict = m.dict()
+
+What is a process pool?
+A pool of worker processes for distributing tasks easily.
+ex:
+from multiprocessing import Pool
+
+def square(n): return n*n
+with Pool(4) as p:
+    print(p.map(square, [1,2,3,4]))
+
+What is asyncio and when to use it? 
+asyncio is Python’s built-in framework for single-threaded, non-blocking I/O.
+Ideal for network or API-heavy workloads (e.g., 1000+ HTTP calls). 
+
+Explain how the event loop works?
+The event loop manages scheduling of asynchronous tasks (coroutines).
+It switches tasks when one awaits I/O, ensuring concurrency in a single thread. 
+
+Basic example of asyncio: 
+import asyncio
+
+async def say_hi():
+    print("Hello")
+    await asyncio.sleep(1)
+    print("World")
+
+asyncio.run(say_hi())
+
+How to run multiple async tasks concurrently? 
+async def task1(): ...
+async def task2(): ...
+await asyncio.gather(task1(), task2())
+
+what are coroutines?
+defined using the async def keyword and used with await. 
+
+What is the difference between await and asyncio.create_task()? 
+
+await:
+Runs and waits for the coroutine result
+
+create_task():
+Schedules coroutine in the background
+
+What happens if you call asyncio.run() inside another running loop? 
+It raises RuntimeError 
+
+How to make blocking I/O async-compatible?
+Use thread or process executors: 
+loop = asyncio.get_running_loop()
+await loop.run_in_executor(None, blocking_func)
+
+Real-world use case example 
+import aiohttp, asyncio
+
+async def fetch(url):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as resp:
+            return await resp.text()
+
+async def main():
+    urls = ["https://example.com", "https://python.org"]
+    results = await asyncio.gather(*(fetch(u) for u in urls))
+    print(results)
+
+asyncio.run(main())
+
+How to debug concurrency issues?
+Use logging with timestamps
+Avoid shared mutable state
+Use locks properly
+Check for race conditions or deadlocks
+
+What’s a deadlock and how can you avoid it? 
+Two threads waiting for each other’s locks indefinitely.
+Avoid by:
+Lock ordering
+Using try_lock with timeout
+
+Can asyncio and multiprocessing be used together? 
+Yes — combine asyncio (for concurrent I/O) with ProcessPoolExecutor (for CPU-bound tasks). 
+ex:
+from concurrent.futures import ProcessPoolExecutor
+await loop.run_in_executor(ProcessPoolExecutor(), cpu_heavy_task)
+
+--------------------------------------------------------------------------------
+
+microservice:
+ Microservices is a form of service-oriented architecture style wherein applications are built as a collection of different smaller services instead of one software or application.
+
+REST:
+REST architectural style and allows for interaction with RESTful web services
+
+docker:
+Docker is an open platform for developing, shipping, and running applications.
+
+git:
+
+Rebase:
+ Rebasing is the process of moving or combining a sequence of commits to a new base commit.
+
+Merge:
+Merge takes all the changes in one branch and merges them into another branch in one commit.
+
+Time complexity BIG '0' notation: ---------------------------------------------------------------------
+
+O(1) -- constant time
+O(n) - linear - single loop
+O(n2) - quadratic - double loop
+O(log n) - grows linearly, 1 sec -10 means 2sec - 200
+
+Quick sort ---------------------------------------------------------------------------------------------
+pseudocode:  Always pick last element as pivot 
+
+quickSort(arr[], low, high)
+{
+    if (low < high)
+    {
+        /* pi is partitioning index, arr[p] is now
+           at right place */
+        pi = partition(arr, low, high);
+
+        quickSort(arr, low, pi - 1);  // Before pi
+        quickSort(arr, pi + 1, high); // After pi
+    }
+}
+
+
+Linked list: -------------------------------------------------------------------------------------------------
+why linked list?
+linked list can be used as an alternative of arrays,
+arrays need to give size before creation, where as linked list do not need.
+
+# Node class
+class Node:
+
+	# Function to initialize the node object
+	def __init__(self, data):
+		self.data = data # Assign data
+		self.next = None # Initialize
+						# next as null
+
+# Linked List class
+class LinkedList:
+	
+	# Function to initialize the Linked
+	# List object
+	def __init__(self):
+		self.head = None
+
+       # TRAVERSAL function prints contents of linked list
+    def printList(self):
+        temp = self.head
+        while (temp):
+            print (temp.data)
+            temp = temp.next
+
+# Code execution starts here
+if __name__=='__main__':
+ 
+    # Start with the empty list
+    llist = LinkedList()
+ 
+    llist.head = Node(1)
+    second = Node(2)
+    third = Node(3)
+
+    llist.head.next = second
+    second.next = third
+
+
+
+---------------------------------------------------------------TREES-------------------------------------------------
+
+trees:
+class Node:
+	def __init__(self,key):
+		self.left = None
+		self.right = None
+		self.val = key
+
+traversal/search or loop through
+
+def printpreorder(root):
+    if root:
+        print(root.val)
+        printpreorder(root.left)
+        printpreorder(root.right)
+
+#INSERTION
+def insert(temp, key):
+    if not temp:
+        root = Node(key)
+        return
+    q = []
+    q.append(temp)
+
+    # Do level order traversal until we find
+    # an empty place.
+    while (len(q)):
+        temp = q[0]
+        q.pop(0)
+
+        if (not temp.left):
+            temp.left = Node(key)
+            break
+        else:
+            q.append(temp.left)
+
+        if (not temp.right):
+            temp.right = Node(key)
+            break
+        else:
+            q.append(temp.right)
+
+#DELETION
+# function to delete element in binary tree
+def deletion(root, key):
+    if root == None :
+        return None
+    if root.left == None and root.right == None:
+        if root.key == key :
+            return None
+        else :
+            return root
+    key_node = None
+    q = []
+    q.append(root)
+    temp = None
+    while(len(q)):
+        temp = q.pop(0)
+        if temp.data == key:
+            key_node = temp
+        if temp.left:
+            q.append(temp.left)
+        if temp.right:
+            q.append(temp.right)
+    if key_node :
+        x = temp.data
+        deleteDeepest(root,temp)
+        key_node.data = x
+
+root = Node(1)
+root.left	 = Node(2)
+root.right	 = Node(3)
+root.left.left = Node(4)
+print(printpreorder(root))
+
+
+
+
+
+Fibonacci
+       n1, n2 = 0, 1
+       count = 0
+       while count < nterms:
+           print(n1)
+           nth = n1 + n2
+           # update values
+           n1 = n2
+           n2 = nth
+           count += 1
+
+
+list comprehension types:
+1.   [x for x in a if x > 5]    -> loop with if
+2. [max(x) for x in vals]   -> find max val 
+3.  [y for x in vals for y in x] -> nested loop
+4.  [[j for j in range(5)] for i in range(5)]  -> nested comprehension
+
+
+----------------------------------------------database connection-------------------------------------------
+
+python:
+
+import mysql.connector
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="yourusername",
+  password="yourpassword"
+)
+cursor =mydb.cursor()
+cursor.execute("SELECT * from User")
+
+django:
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            'read_default_file': '/etc/mysql/my.cnf',
+        },
+    }
+}
+
+flask:
+from flask import Flask
+from flaskext.mysql import MySQL
+app = Flask(__name__)
+mysql = MySQL()
+app.config['MYSQL_DATABASE_USER'] = 'root'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
+app.config['MYSQL_DATABASE_DB'] = 'EmpData'
+app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+mysql.init_app(app)
+
+
+
+---------------------------------------------------------REST API--------------------------------------------------
+
+django:
+class FilterList(generics.ListAPIView):
+    serializer_class = GroupSerializer
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases for
+        the user as determined by the username portion of the URL.
+        """
+        q = self.kwargs['vin']
+        p = ray.objects.filter(name = 'name')
+        return p
+
+Flask:
+from flask import Flask, jsonify, request
+# creating a Flask app
+app = Flask(__name__)
+  
+# on the terminal type: curl http://127.0.0.1:5000/
+# returns hello world when we use GET.
+# returns the data that we send when we use POST.
+@app.route('/', methods = ['GET', 'POST'])
+def home():
+    if(request.method == 'GET'):
+  
+        data = "hello world"
+        return jsonify({'data': data})
+
+
+-----------------------------------websocket------------------------------------------------
+
+from channels.generic.websocket import WebsocketConsumer, AsyncWebsocketConsumer
+
+class ChatConsumer(AsyncWebsocketConsumer):
+    async def connect(self):
+    await self.channel_layer.group_add(
+            self.room_group_name,
+            self.channel_name
+        )
+        await self.accept()
+
+ if(name == 'root1'):
+            await self.channel_layer.group_send(
+                self.room_group_name,
+                {
+                    ' type': 'func_name',  
+                    'message': 'hello',
+                }
+            )
+
+--------------------------------------------------------PYTHON IMPORTS--------------------------------------------
+
+6. What happens when you import a module?
+
+Searches sys.modules
+Searches sys.path
+Compiles .py → .pyc (bytecode)
+Executes the module’s code, creating its namespace
+
+
+python(sys.path)
+
+when you want to import from completely different directory,
+1. sys.path.append('/users/my_module')
+2.  set env vars:
+linux: nano `/.bash_profile
+nano-- PYTHONPATH = "users/my_module"
+windows:
+open environment variables
+new path: c:/Users/mymodule
+
+
+--------------------------------------------------------asyncio---------------------------------------------------
+
+asyncio: asyncio is a library to write concurrent code using the async/await syntax. asyncio is used as a foundation for multiple Python asynchronous frameworks that provide high-performance network and web-servers, database connection libraries, distributed task queues.
+
+ex:
+import asyncio
+
+async def tcp_echo_client(message):
+    reader, writer = await asyncio.open_connection(
+        '127.0.0.1', 8888)
+
+    print(f'Send: {message!r}')
+    writer.write(message.encode())
+    await writer.drain()
+
+    data = await reader.read(100)
+    print(f'Received: {data.decode()!r}')
+
+    print('Close the connection')
+    writer.close()
+    await writer.wait_closed()
+
+asyncio.run(tcp_echo_client('Hello World!'))
+
+
+---------------------------------------------------------------AWS----------------------------------------------------
+
+AWS LAMBDA:
+Lambda runs your code on a high-availability compute infrastructure and performs all of the administration of the compute resources.
+
+Lambda runs instances of your function to process events. You can invoke your function directly using the Lambda API,
+
+
+API Gateway:
+Amazon API Gateway is a fully managed service that makes it easy for developers to create, publish, maintain, monitor, and secure APIs at any scale.
+
+-------------------------------------------------github----------------------------------------------------------
+
+
+
+rebase: The git rebase command is used to merge the history of two branches on a repository.
+
+merge:
+Git merge will combine multiple sequences of commits into one unified history. In the most frequent use cases, git merge is used to combine two branches.
+
+rebase vs merge:
+Git rebase moves a feature branch into a master. Git merge adds a new commit, preserving the history.
+
+-----------------------------------------------------SDLC------------------------------------------------------------
+Agile method:
+
+Instead of doing all the planning, design, coding, and testing in one long process. Agile breaks the work into small, manageable parts called iterations or sprints — usually lasting 1–4 weeks. 
+
+Build software incrementally, get feedback early, and adapt quickly to changes 
+
+additional:
+teamwork, well-disciplined, self-organized and provides accountability.
+Break big projects into small goals (user stories)
+Work on them in short timeboxes (sprints)
+Review what’s built with stakeholders
+Improve how they work each cycle
+
+scrum:  
+it provides specific roles, meetings, and artifacts that help teams stay organized and continuously improve. 
+
+jira:
+is a tracking tool, helps to track progress, Task Management, Backlog planning, Agile reporting.
+
+jenkins:
+used to automate build and test of projects continously, while changes are being made.
+
+scenario for jenkins:
+how will you test continious code change by multiple developers?
+using jenkins automate build and testing everytime there is a code change.
+
