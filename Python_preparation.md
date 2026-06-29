@@ -878,57 +878,62 @@ used for: CPU-bound tasks
 #### Why is Python’s multithreading limited by the GIL? 
 This makes multithreading ineffective for CPU-bound tasks but useful for I/O-bound tasks. 
 
-How do you bypass the GIL for parallel processing?
+#### How do you bypass the GIL for parallel processing?
 Use:
 multiprocessing (spawns separate processes)
 Native extensions in C/Cython
 Libraries like NumPy, TensorFlow (perform C-level computations)
 
-Threading:
+#### Threading:
 ✅ Great for I/O tasks (network calls, disk I/O).
 ❌ Not ideal for CPU-heavy computations due to GIL. 
 
-how is threading lock used:
+#### how is threading lock used:
 a threading lock (also known as a mutex, short for mutual exclusion) is used to prevent multiple threads from accessing shared resources at the same time. 
 
-What’s a daemon thread? 
+#### What’s a daemon thread? 
 A background thread that ends automatically when the main program exits.
 t = threading.Thread(target=worker, daemon=True)
 
-How do you pass data between threads? 
+ #### How do you pass data between threads? 
 Use queue.Queue() — thread-safe FIFO. 
 
-Why use multiprocessing instead of threading?
+####  Why use multiprocessing instead of threading?
 It creates separate processes, each with its own Python interpreter and GIL, enabling true parallelism.
 
-How to share data between processes? 
+#### How to share data between processes? 
 Use multiprocessing.Queue or multiprocessing.Manager()
 Avoid global variables (each process has its own memory)
 This is a modern approach — true shared memory for NumPy arrays or large data buffers. 
 
 ex:
+```
 from multiprocessing import Manager
 m = Manager()
 shared_dict = m.dict()
+```
 
-What is a process pool?
+#### What is a process pool?
 A pool of worker processes for distributing tasks easily.
 ex:
 from multiprocessing import Pool
 
+```
 def square(n): return n*n
 with Pool(4) as p:
     print(p.map(square, [1,2,3,4]))
+```
 
-What is asyncio and when to use it? 
+#### What is asyncio and when to use it? 
 asyncio is Python’s built-in framework for single-threaded, non-blocking I/O.
 Ideal for network or API-heavy workloads (e.g., 1000+ HTTP calls). 
 
-Explain how the event loop works?
+#### Explain how the event loop works?
 The event loop manages scheduling of asynchronous tasks (coroutines).
 It switches tasks when one awaits I/O, ensuring concurrency in a single thread. 
 
-Basic example of asyncio: 
+#### Basic example of asyncio: 
+```
 import asyncio
 
 async def say_hi():
@@ -938,15 +943,19 @@ async def say_hi():
 
 asyncio.run(say_hi())
 
+```
+
 How to run multiple async tasks concurrently? 
+```
 async def task1(): ...
 async def task2(): ...
 await asyncio.gather(task1(), task2())
+```
 
 #### what are coroutines?
 defined using the async def keyword and used with await. 
 
-What is the difference between await and asyncio.create_task()? 
+#### What is the difference between await and asyncio.create_task()? 
 
 await:
 Runs and waits for the coroutine result
