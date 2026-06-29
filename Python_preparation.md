@@ -1,6 +1,6 @@
 
 
-#### What is MRO (Method Resolution Order) 
+####  What is MRO (Method Resolution Order) 
 MRO (Method Resolution Order) solves the ambiguity and unpredictability caused by multiple inheritance. Without it, the computer would not know which parent version of a method to run.
 
 The most famous issue MRO solves is the Diamond Problem. This happens when two subclassing paths share a common ancestor.Imagine this scenario:Class A has a method called save().Class B inherits from A and overrides save().Class C inherits from A and also overrides save().
@@ -15,21 +15,21 @@ The most famous issue MRO solves is the Diamond Problem. This happens when two s
 Interview attending:
 cactus communications:
 questions unanswered:
-####1. whats mutex and semaphores in python: 
+#### 1. whats mutex and semaphores in python: 
 - A mutex ensures that only one thread can access a shared resource at a time. 
 - A semaphore is a counter that controls access to a limited number of shared resources.
-####2.  whats your indexing type you use for your vector?: 
+#### 2.  whats your indexing type you use for your vector?: 
  db: Milvus: Graph-based index that connects nearby vectors; provides very fast and accurate ANN search. 
-####3. difference between multi-threading and async:
+#### 3. difference between multi-threading and async:
 Multi-threading is about adding more workers to do multiple tasks simultaneously, while async (asynchronous programming) is about optimizing your schedule so a single worker doesn't waste time waiting around
 
-####4. AWS policies for 2 aws instances talking to each other?
+#### 4. AWS policies for 2 aws instances talking to each other?
 NA
 
-####5. how did you deploy the llm?
+#### 5. how did you deploy the llm?
 Using vllm/ ollama
 
-####6. uvicorn vs gunicorn?
+#### 6. uvicorn vs gunicorn?
 Gunicorn is an application server manager designed to host stable, multi-threaded applications (WSGI), while Uvicorn is a specialized lightning-fast server built to handle modern asynchronous python code (ASGI).
 
 
@@ -41,12 +41,12 @@ tree and operations
 linked list
 
 questions in interview:
-####bios Basic Input/Output System:
+#### bios Basic Input/Output System:
 instructions in firmware which control input and output operations.
 
 Bios firmware used to perform hardware initialization during the booting process (power-on startup), and to provide runtime services for operating systems and programs.
 
-####UEFI: (Unified Extensible Firmware Interface)
+#### UEFI: (Unified Extensible Firmware Interface)
 UEFI defines a new method by which OSes and platform firmware communicate,
 
 Aptio® V represents a hardened production-ready UEFI BIOS Firmware, featuring support for the latest UEFI specifications and the security, fast boot and touch support that today's platforms require.
@@ -63,25 +63,25 @@ factentry:
 1. private variables 
 2. access specifiers in python : a single underscore ‘_’ symbol before the data member of that class, 
 
-####what are Lambda functions?
+#### what are Lambda functions?
 Lambda functions are small, anonymous, single-line functions that you can create on the fly without giving them a formal name
 
 lambda:
 add = lambda x, y: x + y
 
-####lambda functions advantages:
+#### lambda functions advantages:
 1. small functions that can be used for small operations/logic to save space.
 2.  can be used inside map,filter functions ->list(map(lambda x: x**2, numbers))
 
-####4. lambda function disadvantages:
+#### 4. lambda function disadvantages:
 i.Lambda functions can have only one expression.
 ii.Lambda functions cannot have a docstring.
 iii.Many times lambda functions make code difficult to read. 
 
-####6. types of inheritance used in python    
+#### 6. types of inheritance used in python    
 you can create parent and child classes and use super to inherit variables or functions from parent classes.
 
-####8. sql query questions - used ORM not queries
+#### 8. sql query questions - used ORM not queries
 9. rest api what are  
 put -> 
 patch->
@@ -89,51 +89,51 @@ post operations->
 
 
 
-####0. how python interpreter works?
+#### 0. how python interpreter works?
 Python doesn’t convert its code into machine code, something that hardware can understand. It actually converts it into byte code, and uses Pvm(python virtual machine) to execute the code.
 
-####2. binary tree application, country
+#### 2. binary tree application, country
 3.  without loop use the map and filter to iterate and compute and condition
 
 
-####Django mixins:
+#### Django mixins:
 type of multiple inheritance - combine behaviour and attributes of more than one parentclass
 
 
 --------------------------------------------------BASICS------------------------------------------------------------
 
-####pep 8:
+#### pep 8:
 PEP stands for Python Enhancement Proposal. It is a set of rules that specify how to format Python code for maximum readability.
 
-####help():
+#### help():
 shows documentation of modules and class, callable function, keyworks
 
-####dir():
+#### dir():
 shows valid list attributes and methods
 
-####.py:
+#### .py:
 contians source code
 
-####.pyc:
+#### .pyc:
 compiled bytecode
 
 
-####nolocal:
+#### nolocal:
 nolocal is often used when you need to access a variable in a nested function
 
 
 
-####Garbage collection:
+#### Garbage collection:
 Garbage collection is a process in which the interpreter frees up the memory when not in use to make it available for other objects.
 
-####How is memory managed in python?
+#### How is memory managed in python?
 Python uses reference counting and garbage collection to manage memory.
 
-####MEmory management:
+#### MEmory management:
 python uses private heap for storing all objects in python,
 Memory allocation means allocating a block of space in the computer memory to a program. memory allocation and deallocation method is automatic  garbage collector for Python so that the user does not have to do manual garbage collection.
 
-####Explain id() and object interning (is) ?
+#### Explain id() and object interning (is) ?
 id(obj) returns the memory address (or unique ID) of an object.
  Python “interns” small integers and short strings for reuse.
 interning:
@@ -145,21 +145,21 @@ x = 1000
 y = 1000
 print(x is y)  # False — not interned
 
-####whats the diff between 'is' and '=='?
+#### whats the diff between 'is' and '=='?
 == → Equality 
 is → Identity  (check if id's of two objs are same)
 
-####finalize method:
+#### finalize method:
 used to free up the unmanaged resources and clean up before the garbage collection.
 
-####GIL (global interpreter lock):
+#### GIL (global interpreter lock):
 its a locking mechanism allows only one thread to execute Python code at a time. It simplifies memory management and avoids race conditions but limits true parallel execution in CPU-bound tasks. 
 
-####Lambda:
+#### Lambda:
 A lambda function is a small anonymous function.
 A lambda function can take any number of arguments, but can only have one expression.
 
-####How do context managers work (with statement)? 
+#### How do context managers work (with statement)? 
 When Python encounters a with statement, it triggers a specific lifecycle behind the scenes:Initialization: Python creates the context manager object.Setup (__enter__): Python calls the __enter__() method. Any value returned by this method is assigned to the variable after the as keyword.Execution: Python runs the indented block of code inside the with statement.Teardown (__exit__): Python calls the __exit__() method—even if an error occurs inside the block. This guarantees clean-up.
 
 They implement __enter__ and __exit__. 
@@ -170,7 +170,7 @@ Used to handle setup/cleanup (like file I/O, locks, DB connections).
 
 
 
-####Filter:
+#### Filter:
 The filter() method filters the given sequence with the help of a function that tests each element in the sequence to be true or not.
 
 syntax: filter(function, iteratable)
@@ -178,7 +178,7 @@ syntax: filter(function, iteratable)
 example:
 
 
-####Map:
+#### Map:
 map() function returns a map object(which is an iterator) of the results after applying the given function to each item of a given iterable (list, tuple etc.)
 syntax: map(fun, iter)
 
@@ -187,70 +187,70 @@ def myfunc(n):
   return len(n)
 x = map(myfunc, ('apple', 'banana', 'cherry'))
 
-####Difference between Map and Filter:
+#### Difference between Map and Filter:
 Map takes all objects in a list and allows you to apply a function to it whereas Filter takes all objects in a list and runs that through a function to create a new list with all objects that return True in that function.
 
-####filter only takes a function that return True or False
+#### filter only takes a function that return True or False
 map can  take a function that return any objects
 
-####difference between a class and an object?
+#### difference between a class and an object?
 Objects take memory space when they are created, A class does not take memory space when created
 
-####different types of inheritance:
+#### different types of inheritance:
 Single inheritance
 Multiple inheritance
 Multilevel inheritance
 Hierarchical inheritance
 Hybrid inheritance
 
-####whats dunder/magic methods in python? 
+#### whats dunder/magic methods in python? 
 methods with double underscore are dunder methods, ex: __init__(), __main__()
 
-####what is decorator?
+#### what is decorator?
 refer below
 
-####what is unit test? why?
+#### what is unit test? why?
 closure in python -> wrapper function
 a closure is afunction object that remembers values in encloseing scpoes even if they are not present in memory
 
 
 
-####what standard/flow of coding are you following?
+#### what standard/flow of coding are you following?
 we following we write the required code first and then unit test in django test.py files. performance test and stress test is done before production.
 
 
 
-####------------------------------------------------------TESTING-----------------------------------------------------
+#### ------------------------------------------------------TESTING-----------------------------------------------------
 
-####types of testing?
+#### types of testing?
 Unit Testing: It focuses on the smallest unit of software design.It is often done by the programmer by using sample input and observing its corresponding outputs. 
 
-####Integration Testing:
+#### Integration Testing:
 The objective is to take unit tested components and build a program structure that has been dictated by design.
 
-####White Box testing and Black Box testing?
+#### White Box testing and Black Box testing?
  Black Box testing: It is used for validation. 
 In this we ignore internal working mechanism and 
 focuse on what is the output?
 
-####White Box testing:- It is used for verification. 
+#### White Box testing:- It is used for verification. 
 In this we focus on internal mechanism i.e.
 how the output is achieved?
 
-####Regression Testing:
+#### Regression Testing:
 Every time a new module is added leads to changes in the program. This type of testing makes sure that the whole component works properly even after adding components to the complete program. 
 
 
-####Stress Testing:
+#### Stress Testing:
 In this, we give unfavorable conditions to the system and check how they perform in those conditions.
 
-####Performance Testing
+#### Performance Testing
 It is designed to test the run-time performance of software within the context of an integrated system.
 
 
 -------------------------------------------------------processes and threads ------------------------------
 
-####diff between multiprocess and multithreading?
+#### diff between multiprocess and multithreading?
 
 lib used:
 multithreading:
@@ -301,7 +301,7 @@ t2.join()
 
 -------------------------------------------------------OOPS---------------------------------------------------------
 
-####What’s the difference between @property and a normal method? 
+#### What’s the difference between @property and a normal method? 
 Turns a method into a managed attribute. It lets you access method logic as if it were a regular attribute, without parentheses. 
 ```class Circle:
     def __init__(self, r): self._r = r
@@ -321,7 +321,7 @@ finally:
     ...  # runs always
 ```
 
-####How does Python handle function default arguments (gotcha)? 
+#### How does Python handle function default arguments (gotcha)? 
 Default mutable arguments are evaluated once at function definition, not each call. 
 ```
 def f(x=[]):
@@ -333,13 +333,13 @@ print(f())  # [1, 1]  <-- bug
 ```
 
 
-####`issubclass()`:
+#### `issubclass()`:
 used to check if class is subclass
 
-####`self` keyword:
+#### `self` keyword:
 self represents the instance of the class. By using the “self” keyword we can access the attributes and methods of the class in python.
 
-####Class method:
+#### Class method:
 `classmethod()` methods are bound to a class rather than an object.
 
 used:
@@ -364,7 +364,7 @@ class Person:
         return cls(name, year)           
 ```
 
-####What is the difference between __init__ and __new__?
+#### What is the difference between __init__ and __new__?
 __new__ creates an instance (used in singletons, immutables)
 __init__ initializes the created instance
 ex: 
@@ -379,7 +379,7 @@ class A:
 
 
 
-####STATIC METHOD:
+#### STATIC METHOD:
 `@staticmethod `
 a staticmethod does not have self or class as parameters. these methods are normal methods.
 
@@ -399,7 +399,7 @@ class cars(object):
         return true
 ```
 
-####inheritance:
+#### inheritance:
 Inheritance allows us to define a class that inherits all the methods and properties from another class.
 ex:
 ```
@@ -422,10 +422,10 @@ x = Student("John", "Doe")
 x.printname()
 ```
 
-####Super method:
+#### Super method:
 By using the super() function, you do not have to use the name of the parent element, it will automatically inherit the methods and properties from its parent.
 
-####Polymorphism
+#### Polymorphism
 Polymorphism simply means having many forms. For example, we need to determine if the given species of birds fly or not, using polymorphism we can do this using a single function.
 
 ex:
@@ -449,17 +449,17 @@ obj_spr.flight()
 
 ```
 
-####Encapsultion:
+#### Encapsultion:
 It describes the idea of wrapping data and the methods that work on data within one unit. example: class
 
 This puts restrictions on accessing variables and methods directly and can prevent the accidental modification of data.
 
 
-####Abstraction:
+#### Abstraction:
 
 Abstraction is used to hide the internal functionality of the function from the users.
 
-####Abstract class:
+#### Abstract class:
 i. an abstract class is used to make regular clases, an abstract class is like a template for other classes.
 
 i. an abstract class cannot be used by instantiating, you can use by inheriting it to another class and then use it.
@@ -473,7 +473,7 @@ class Dog(ABC):
         print('bark')
  ```
 
-####Abstract Method:
+#### Abstract Method:
 an Abstract method is a method that is not implemented. the abstract methods are to be implemented in child classes only,
 
 ex:
@@ -488,11 +488,11 @@ class Dog(ABC):
 
 ```
 
-####Access specifiers:
+#### Access specifiers:
 
 Python doesn't have any mechanism that effectively restricts access to any instance variable or method. Python prescribes a convention of prefixing the name of the variable/method with a single or double underscore to emulate the behavior of protected and private access specifiers.
 
-####Private Member:
+#### Private Member:
 The double underscore __ prefixed to a variable makes it private.
 It gives a strong suggestion not to touch it from outside the class. Any attempt to do so will result in an AttributeError:
 
@@ -513,13 +513,13 @@ AttributeError: 'Student' object has no attribute '__schoolName'
 
 Every member with a double underscore will be changed to _object._class__variable
 
-####-----------DATE TIME------------------------
+#### -----------DATE TIME------------------------
 
-#### What specific limitation arises when performing 'timedelta' calculations on localized 'datetime' objects in Python using the 'pytz' library?
+####  What specific limitation arises when performing 'timedelta' calculations on localized 'datetime' objects in Python using the 'pytz' library?
 the utc offset and dst status are not automatically updated, this is because time delt math operates on the absolute time without recalculating timezone specific rules
 
-####---------------------------------------------------ADVANCED PYTHON--------------------------------------
-#### GENERATOR FUNCTIONS:
+#### ---------------------------------------------------ADVANCED PYTHON--------------------------------------
+####  GENERATOR FUNCTIONS:
 A generator is a special type of function which does not return a single value, instead, it returns an iterator object with a sequence of values. a 'yield' statement is used rather than a return statement
 
 EX:
@@ -551,12 +551,12 @@ Generator Expression:
 
 
 
-####Higher order functions:
+#### Higher order functions:
 A higher order function is a function that takes a function as an argument, or returns a function .
 
 ex: map function
 
-####FIRST CLASS FUNCTIONS:
+#### FIRST CLASS FUNCTIONS:
 python treats functions as First class objects, thats why its called FIrst class functions
 
 1. you can pass values from outer function and use it inside inner function.
@@ -572,18 +572,18 @@ def logger(msg):
 log = logger('world')
 log()
 ```
-####What are annotations in Python functions? 
+#### What are annotations in Python functions? 
 Metadata stored in __annotations__, often used for type hints.
 
-####How does *args and **kwargs work internally?
+#### How does *args and **kwargs work internally?
 *args collects positional arguments into a tuple.
 **kwargs collects keyword arguments into a dict.
 Together, they make flexible APIs. 
 
-####whats function overloading?
+#### whats function overloading?
 You can define multiple functions with the same name but different parameter lists, you cannot do function overloading in python but you can simulate it using, args and kwargs.
 
-####What is memoization and how is it implemented?
+#### What is memoization and how is it implemented?
 Memoization in Python (and in programming generally) is an optimization technique used to speed up functions by storing the results of expensive function calls.
 Done using Caching function results to avoid recomputation. 
 ex:
@@ -592,16 +592,16 @@ from functools import lru_cache
 def fib(n):
     return n if n < 2 else fib(n-1) + fib(n-2)
 
-####What’s the use of __repr__ vs __str__ ?
+#### What’s the use of __repr__ vs __str__ ?
 __str__: 
 User-readable
 print(obj)
 
-####__repr__ :
+#### __repr__ :
 Developer-readable
 repr(obj) or interactive
 
-####Explain __call__ ?
+#### Explain __call__ ?
 Makes an object callable like a function.
 ```
 class Adder:
@@ -612,13 +612,13 @@ add5 = Adder(5)
 print(add5(10))  # 15
 ```
 
-####What is __del__ ?
+#### What is __del__ ?
 Object destructor called when the object is about to be garbage-collected. 
 
-####How to reduce memory footprint in Python?
+#### How to reduce memory footprint in Python?
 Use __slots__ , Prefer tuple over list for immutables, Use lru_cache to memoize, Use generators for large data streams 
 
-####What tools can you use for memory profiling ?
+#### What tools can you use for memory profiling ?
 tracemalloc
 memory_profiler
  
@@ -637,7 +637,7 @@ double = make_multiplier(2)
 print(double(5))  # 10
 ```
 
-####How to modify a nonlocal variable in an inner function? 
+#### How to modify a nonlocal variable in an inner function? 
 Use the nonlocal keyword to modify variables from an enclosing (but non-global) scope.
 ex:
 ```
@@ -677,10 +677,10 @@ ml algorithms
 aws certification based questions.
 
 
-####META programming:
+#### META programming:
 the program tries to modify another part of the program at compile time.
 
-####META CLASS:
+#### META CLASS:
 a metaclass is a class whose instances are classes. 
 - In Python, classes are instances of metaclasses 
 -  Used for enforcing patterns, validation, ORM models (like Django models).
@@ -695,7 +695,7 @@ class Meta(type):
 class MyClass(metaclass=Meta):
     pass
 ```
-####DECORATOR:
+#### DECORATOR:
 a decorator function is used to alter an functionality in a method,
 a decorator takes another function as its argument, and returns yet another function .
 
@@ -707,7 +707,7 @@ used to:
 ex:
 assumtion while using decorator: wrapper function executes before the outer function.
 
-####decorator function
+#### decorator function
 ```
 def Function1(func):
     var1 = 1
@@ -727,7 +727,7 @@ def print1(hg, bj):
 ```
 --------------------------------------------- decorator class--------------------------------
 
-####__call__ method:
+#### __call__ method:
 
 The __call__ method enables Python programmers to write classes where the instances behave like functions and can be called like a function. 
 
@@ -746,7 +746,7 @@ def display():
     print('display function ran')
 
 
-####GENERATOR:
+#### GENERATOR:
 it can be used as iterators, which uses lesser memory
  allows you to make an iterator in a fast, easy, and clean way.
 
@@ -772,37 +772,37 @@ nums = (x*x for x in [12,2,34,4,5])
 ------------------------------------------------------------------------------------
 
 
-####python iterator vs generators:
+#### python iterator vs generators:
 
-####iterator:
+#### iterator:
 used to iterate over an object like list or array. objects enclosed with iter() return and iterator object. "next()" can be used to get the next value in the iterator.
 
-####generator:
+#### generator:
 "yield" passes the loop, using a generator you can create an iterator to  generate next element of an iterable object when needed or called.
 
 
 
-####design pattern:
+#### design pattern:
 a design pattern is a template of code with showcases the design of the project. it focuses on class creation pattern, object creation pattern, inheritance
 
-####types:
-####creational: 
+#### types:
+#### creational: 
 Creational patterns provides essential information regarding the Class instantiation or the object instantiation
 
-####structural: its about organizing different classes and objects to form larger structures, providing new functionalities  while keeping those structures efficient. uses: inheritance
+#### structural: its about organizing different classes and objects to form larger structures, providing new functionalities  while keeping those structures efficient. uses: inheritance
 
-####behaviorial:
+#### behaviorial:
 Behavioral patterns are all about identifying the common communication patterns between objects and realize these patterns.
 
 
-####Factory:
+#### Factory:
 Factory Method is a Creational Design Pattern that allows an interface or a class to create an object, but lets subclasses decide which class or object to instantiate. Using the Factory method, we have the best ways to create an object. Here, objects are created without exposing the logic to the client, and for creating the new type of object, the client uses the same common interface.
 
 uses:
 We can easily add new types of products without disturbing the existing client code.
 Generally, tight coupling is being avoided between the products and the creator classes and objects.
 
-####Singleton Method:
+#### Singleton Method:
 It is a way to create one and only one object of a particular type. the state of that object is shared by all the instances of the object created.
 
 if an value of variable of an object is changed, the value of all previously created object will be updated.
@@ -849,33 +849,33 @@ if __name__ == "__main__":
 	print(person3) # output --> Geeks
 ```
 
-####--------------------------concurrency and parallelism ---------------------------
-####1. What’s the difference between concurrency and parallelism? 
+#### --------------------------concurrency and parallelism ---------------------------
+#### 1. What’s the difference between concurrency and parallelism? 
 
-####Concurrency:
+#### Concurrency:
 Structuring code to handle multiple tasks at once (even if not simultaneously)
 ex:
 Async I/O, coroutines
 
 
-####Parallelism:
+#### Parallelism:
 Running multiple tasks at the same time on multiple CPU cores
 ex:
 Multiprocessing, GPU compute
 
 difference between multithreading and multiprocessing ?
 
-####Multithreading
+#### Multithreading
 Multiple threads share the same memory space within one process.
 used for : I/O-bound tasks
 
 
-####Multiprocessing
+#### Multiprocessing
 Multiple processes, each with its own Python interpreter and memory space.
 used for: CPU-bound tasks
 
 
-####Why is Python’s multithreading limited by the GIL? 
+#### Why is Python’s multithreading limited by the GIL? 
 This makes multithreading ineffective for CPU-bound tasks but useful for I/O-bound tasks. 
 
 How do you bypass the GIL for parallel processing?
@@ -943,7 +943,7 @@ async def task1(): ...
 async def task2(): ...
 await asyncio.gather(task1(), task2())
 
-####what are coroutines?
+#### what are coroutines?
 defined using the async def keyword and used with await. 
 
 What is the difference between await and asyncio.create_task()? 
@@ -954,10 +954,10 @@ Runs and waits for the coroutine result
 create_task():
 Schedules coroutine in the background
 
-####What happens if you call asyncio.run() inside another running loop? 
+#### What happens if you call asyncio.run() inside another running loop? 
 It raises RuntimeError 
 
-####How to make blocking I/O async-compatible?
+#### How to make blocking I/O async-compatible?
 Use thread or process executors: 
 loop = asyncio.get_running_loop()
 await loop.run_in_executor(None, blocking_func)
@@ -979,19 +979,19 @@ async def main():
 asyncio.run(main())
 ```
 
-####How to debug concurrency issues?
+#### How to debug concurrency issues?
 Use logging with timestamps
 Avoid shared mutable state
 Use locks properly
 Check for race conditions or deadlocks
 
-####What’s a deadlock and how can you avoid it? 
+#### What’s a deadlock and how can you avoid it? 
 Two threads waiting for each other’s locks indefinitely.
 Avoid by:
 Lock ordering
 Using try_lock with timeout
 
-####Can asyncio and multiprocessing be used together? 
+#### Can asyncio and multiprocessing be used together? 
 Yes — combine asyncio (for concurrent I/O) with ProcessPoolExecutor (for CPU-bound tasks). 
 ex:
 from concurrent.futures import ProcessPoolExecutor
@@ -999,16 +999,16 @@ await loop.run_in_executor(ProcessPoolExecutor(), cpu_heavy_task)
 
 --------------------------------------------------------------------------------
 
-####microservice:
+#### microservice:
  Microservices is a form of service-oriented architecture style wherein applications are built as a collection of different smaller services instead of one software or application.
 
-####REST:
+#### REST:
 REST architectural style and allows for interaction with RESTful web services
 
-####docker:
+#### docker:
 Docker is an open platform for developing, shipping, and running applications.
 
-####git:
+#### git:
 
 Rebase:
  Rebasing is the process of moving or combining a sequence of commits to a new base commit.
@@ -1016,14 +1016,14 @@ Rebase:
 Merge:
 Merge takes all the changes in one branch and merges them into another branch in one commit.
 
-####Time complexity BIG '0' notation: ---------------------------------------------------------------------
+#### Time complexity BIG '0' notation: ---------------------------------------------------------------------
 
 O(1) -- constant time
 O(n) - linear - single loop
 O(n2) - quadratic - double loop
 O(log n) - grows linearly, 1 sec -10 means 2sec - 200
 
-####Quick sort ---------------------------------------------------------------------------------------------
+#### Quick sort ---------------------------------------------------------------------------------------------
 pseudocode:  Always pick last element as pivot 
 
 quickSort(arr[], low, high)
@@ -1040,7 +1040,7 @@ quickSort(arr[], low, high)
 }
 
 
-####Linked list: -------------------------------------------------------------------------------------------------
+#### Linked list: -------------------------------------------------------------------------------------------------
 why linked list?
 linked list can be used as an alternative of arrays,
 arrays need to give size before creation, where as linked list do not need.
@@ -1183,7 +1183,7 @@ list comprehension types:
 4.  [[j for j in range(5)] for i in range(5)]  -> nested comprehension
 
 
-####----------------------------------------------database connection-------------------------------------------
+#### ----------------------------------------------database connection-------------------------------------------
 
 python:
 ```
@@ -1279,7 +1279,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 ```
 --------------------------------------------------------PYTHON IMPORTS--------------------------------------------
 
-####6. What happens when you import a module?
+#### 6. What happens when you import a module?
 
 Searches sys.modules
 Searches sys.path
@@ -1299,7 +1299,7 @@ open environment variables
 new path: c:/Users/mymodule
 
 
-####--------------------------------------------------------asyncio---------------------------------------------------
+#### --------------------------------------------------------asyncio---------------------------------------------------
 
 asyncio: asyncio is a library to write concurrent code using the async/await syntax. asyncio is used as a foundation for multiple Python asynchronous frameworks that provide high-performance network and web-servers, database connection libraries, distributed task queues.
 
@@ -1326,32 +1326,32 @@ asyncio.run(tcp_echo_client('Hello World!'))
 
 ```
 
-####---------------------------------------------------------------AWS----------------------------------------------------
+#### ---------------------------------------------------------------AWS----------------------------------------------------
 
-####AWS LAMBDA:
+#### AWS LAMBDA:
 Lambda runs your code on a high-availability compute infrastructure and performs all of the administration of the compute resources.
 
 Lambda runs instances of your function to process events. You can invoke your function directly using the Lambda API,
 
 
-####API Gateway:
+#### API Gateway:
 Amazon API Gateway is a fully managed service that makes it easy for developers to create, publish, maintain, monitor, and secure APIs at any scale.
 
-####-------------------------------------------------github----------------------------------------------------------
+#### -------------------------------------------------github----------------------------------------------------------
 
 
 
-####rebase:
+#### rebase:
 The git rebase command is used to merge the history of two branches on a repository.
 
-####merge:
+#### merge:
 Git merge will combine multiple sequences of commits into one unified history. In the most frequent use cases, git merge is used to combine two branches.
 
-####rebase vs merge:
+#### rebase vs merge:
 Git rebase moves a feature branch into a master. Git merge adds a new commit, preserving the history.
 
 -----------------------------------------------------SDLC------------------------------------------------------------
-####Agile method:
+#### Agile method:
 
 Instead of doing all the planning, design, coding, and testing in one long process. Agile breaks the work into small, manageable parts called iterations or sprints — usually lasting 1–4 weeks. 
 
@@ -1364,13 +1364,13 @@ Work on them in short timeboxes (sprints)
 Review what’s built with stakeholders
 Improve how they work each cycle
 
-####scrum:  
+#### scrum:  
 it provides specific roles, meetings, and artifacts that help teams stay organized and continuously improve. 
 
-####jira:
+#### jira:
 is a tracking tool, helps to track progress, Task Management, Backlog planning, Agile reporting.
 
-####jenkins:
+#### jenkins:
 used to automate build and test of projects continously, while changes are being made.
 
 scenario for jenkins:
