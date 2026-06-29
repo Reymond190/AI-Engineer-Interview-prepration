@@ -1035,6 +1035,7 @@ O(log n) - grows linearly, 1 sec -10 means 2sec - 200
 #### Quick sort ---------------------------------------------------------------------------------------------
 pseudocode:  Always pick last element as pivot 
 
+```
 quickSort(arr[], low, high)
 {
     if (low < high)
@@ -1047,13 +1048,14 @@ quickSort(arr[], low, high)
         quickSort(arr, pi + 1, high); // After pi
     }
 }
-
+```
 
 #### Linked list: -------------------------------------------------------------------------------------------------
 why linked list?
 linked list can be used as an alternative of arrays,
 arrays need to give size before creation, where as linked list do not need.
 
+```
 # Node class
 class Node:
 
@@ -1091,11 +1093,12 @@ if __name__=='__main__':
     llist.head.next = second
     second.next = third
 
-
+```
 
 ---------------------------------------------------------------TREES-------------------------------------------------
 
 trees:
+```
 class Node:
 	def __init__(self,key):
 		self.left = None
@@ -1169,10 +1172,10 @@ root.right	 = Node(3)
 root.left.left = Node(4)
 print(printpreorder(root))
 
+```
 
 
-
-
+```
 Fibonacci
        n1, n2 = 0, 1
        count = 0
@@ -1183,7 +1186,7 @@ Fibonacci
            n1 = n2
            n2 = nth
            count += 1
-
+```
 
 list comprehension types:
 1.   [x for x in a if x > 5]    -> loop with if
