@@ -1,4 +1,6 @@
-PAPER READ: Generalization in Nonlinear Least Squares via Learned Feature Geometry
+PAPER READ: Generalization in Nonlinear Least Squares via Learned Feature Geometry:
+
+https://arxiv.org/abs/2606.08799
 
 Here is a breakdown of the paper, broken down into plain English with analogies to concepts you might know from LLMs.
 
