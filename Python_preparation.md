@@ -1,10 +1,9 @@
-set this straight before interview:
-1. work culture prefer remote
-2. location
 
-delloite python developer:
-1. MRO (Method Resolution Order) 
+
+What is MRO (Method Resolution Order) 
 MRO (Method Resolution Order) solves the ambiguity and unpredictability caused by multiple inheritance. Without it, the computer would not know which parent version of a method to run.
+
+The most famous issue MRO solves is the Diamond Problem. This happens when two subclassing paths share a common ancestor.Imagine this scenario:Class A has a method called save().Class B inherits from A and overrides save().Class C inherits from A and also overrides save().
 
 2. Sql alchemy (usage pattern)
 3. db relationships (one to many etc)
