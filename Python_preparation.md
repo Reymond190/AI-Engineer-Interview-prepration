@@ -1,6 +1,6 @@
 
 
-What is MRO (Method Resolution Order) 
+#### What is MRO (Method Resolution Order) 
 MRO (Method Resolution Order) solves the ambiguity and unpredictability caused by multiple inheritance. Without it, the computer would not know which parent version of a method to run.
 
 The most famous issue MRO solves is the Diamond Problem. This happens when two subclassing paths share a common ancestor.Imagine this scenario:Class A has a method called save().Class B inherits from A and overrides save().Class C inherits from A and also overrides save().
@@ -15,22 +15,23 @@ The most famous issue MRO solves is the Diamond Problem. This happens when two s
 Interview attending:
 cactus communications:
 questions unanswered:
-1. mutex and semaphores in python: 
+####1. whats mutex and semaphores in python: 
 - A mutex ensures that only one thread can access a shared resource at a time. 
 - A semaphore is a counter that controls access to a limited number of shared resources.
-2. whats your indexing type you use for your vector?: 
+####2.  whats your indexing type you use for your vector?: 
  db: Milvus: Graph-based index that connects nearby vectors; provides very fast and accurate ANN search. 
-3. difference between multi-threading and async:
+####3. difference between multi-threading and async:
+Multi-threading is about adding more workers to do multiple tasks simultaneously, while async (asynchronous programming) is about optimizing your schedule so a single worker doesn't waste time waiting around
+
+####4. AWS policies for 2 aws instances talking to each other?
 NA
-4. AWS policies for 2 aws instances talking to each other?
-5. how did you deploy the llm?
-6. uvicorn vs gunicorn
 
-athena health
-LTI mindtree
-deloitte
+####5. how did you deploy the llm?
+Using vllm/ ollama
 
-offer possible for:
+####6. uvicorn vs gunicorn?
+Gunicorn is an application server manager designed to host stable, multi-threaded applications (WSGI), while Uvicorn is a specialized lightning-fast server built to handle modern asynchronous python code (ASGI).
+
 
 
 need to prepare:
@@ -40,12 +41,12 @@ tree and operations
 linked list
 
 questions in interview:
-bios Basic Input/Output System:
+####bios Basic Input/Output System:
 instructions in firmware which control input and output operations.
 
 Bios firmware used to perform hardware initialization during the booting process (power-on startup), and to provide runtime services for operating systems and programs.
 
-UEFI: (Unified Extensible Firmware Interface)
+####UEFI: (Unified Extensible Firmware Interface)
 UEFI defines a new method by which OSes and platform firmware communicate,
 
 Aptio® V represents a hardened production-ready UEFI BIOS Firmware, featuring support for the latest UEFI specifications and the security, fast boot and touch support that today's platforms require.
@@ -62,22 +63,25 @@ factentry:
 1. private variables 
 2. access specifiers in python : a single underscore ‘_’ symbol before the data member of that class, 
 
+####what are Lambda functions?
+Lambda functions are small, anonymous, single-line functions that you can create on the fly without giving them a formal name
+
 lambda:
 add = lambda x, y: x + y
 
-lambda functions advantages:
+####lambda functions advantages:
 1. small functions that can be used for small operations/logic to save space.
 2.  can be used inside map,filter functions ->list(map(lambda x: x**2, numbers))
 
-4. lambda function disadvantages:
+####4. lambda function disadvantages:
 i.Lambda functions can have only one expression.
 ii.Lambda functions cannot have a docstring.
 iii.Many times lambda functions make code difficult to read. 
 
-6. types of inheritance used in python    
+####6. types of inheritance used in python    
 you can create parent and child classes and use super to inherit variables or functions from parent classes.
 
-8. sql query questions - used ORM not queries
+####8. sql query questions - used ORM not queries
 9. rest api what are  
 put -> 
 patch->
@@ -85,51 +89,51 @@ post operations->
 
 
 
-0. how python interpreter works?
+####0. how python interpreter works?
 Python doesn’t convert its code into machine code, something that hardware can understand. It actually converts it into byte code, and uses Pvm(python virtual machine) to execute the code.
 
-2. binary tree application, country
+####2. binary tree application, country
 3.  without loop use the map and filter to iterate and compute and condition
 
 
-Django mixins:
+####Django mixins:
 type of multiple inheritance - combine behaviour and attributes of more than one parentclass
 
 
 --------------------------------------------------BASICS------------------------------------------------------------
 
- pep 8:
+####pep 8:
 PEP stands for Python Enhancement Proposal. It is a set of rules that specify how to format Python code for maximum readability.
 
-help():
+####help():
 shows documentation of modules and class, callable function, keyworks
 
-dir():
+####dir():
 shows valid list attributes and methods
 
-.py:
+####.py:
 contians source code
 
-.pyc:
+####.pyc:
 compiled bytecode
 
 
-nolocal:
+####nolocal:
 nolocal is often used when you need to access a variable in a nested function
 
 
 
-Garbage collection:
+####Garbage collection:
 Garbage collection is a process in which the interpreter frees up the memory when not in use to make it available for other objects.
 
-How is memory managed in python?
+####How is memory managed in python?
 Python uses reference counting and garbage collection to manage memory.
 
-MEmory management:
+####MEmory management:
 python uses private heap for storing all objects in python,
 Memory allocation means allocating a block of space in the computer memory to a program. memory allocation and deallocation method is automatic  garbage collector for Python so that the user does not have to do manual garbage collection.
 
-Explain id() and object interning (is) ?
+####Explain id() and object interning (is) ?
 id(obj) returns the memory address (or unique ID) of an object.
  Python “interns” small integers and short strings for reuse.
 interning:
@@ -141,21 +145,23 @@ x = 1000
 y = 1000
 print(x is y)  # False — not interned
 
-whats the diff between 'is' and '=='?
+####whats the diff between 'is' and '=='?
 == → Equality 
 is → Identity  (check if id's of two objs are same)
 
-finalize method:
+####finalize method:
 used to free up the unmanaged resources and clean up before the garbage collection.
 
-GIL (global interpreter lock):
+####GIL (global interpreter lock):
 its a locking mechanism allows only one thread to execute Python code at a time. It simplifies memory management and avoids race conditions but limits true parallel execution in CPU-bound tasks. 
 
-Lambda:
+####Lambda:
 A lambda function is a small anonymous function.
 A lambda function can take any number of arguments, but can only have one expression.
 
-How do context managers work (with statement)? 
+####How do context managers work (with statement)? 
+When Python encounters a with statement, it triggers a specific lifecycle behind the scenes:Initialization: Python creates the context manager object.Setup (__enter__): Python calls the __enter__() method. Any value returned by this method is assigned to the variable after the as keyword.Execution: Python runs the indented block of code inside the with statement.Teardown (__exit__): Python calls the __exit__() method—even if an error occurs inside the block. This guarantees clean-up.
+
 They implement __enter__ and __exit__. 
 class File:
     def __enter__(self): ...
@@ -163,12 +169,8 @@ class File:
 Used to handle setup/cleanup (like file I/O, locks, DB connections). 
 
 
-syntax: lambda arguments : expression
 
-example:
-lambda x: x % 2 != 0
-
-Filter:
+####Filter:
 The filter() method filters the given sequence with the help of a function that tests each element in the sequence to be true or not.
 
 syntax: filter(function, iteratable)
@@ -176,7 +178,7 @@ syntax: filter(function, iteratable)
 example:
 
 
-Map:
+####Map:
 map() function returns a map object(which is an iterator) of the results after applying the given function to each item of a given iterable (list, tuple etc.)
 syntax: map(fun, iter)
 
@@ -185,70 +187,70 @@ def myfunc(n):
   return len(n)
 x = map(myfunc, ('apple', 'banana', 'cherry'))
 
-Difference between Map and Filter:
+####Difference between Map and Filter:
 Map takes all objects in a list and allows you to apply a function to it whereas Filter takes all objects in a list and runs that through a function to create a new list with all objects that return True in that function.
 
-filter only takes a function that return True or False
+####filter only takes a function that return True or False
 map can  take a function that return any objects
 
-difference between a class and an object?
+####difference between a class and an object?
 Objects take memory space when they are created, A class does not take memory space when created
 
-different types of inheritance:
+####different types of inheritance:
 Single inheritance
 Multiple inheritance
 Multilevel inheritance
 Hierarchical inheritance
 Hybrid inheritance
 
-whats dunder/magic methods in python? 
+####whats dunder/magic methods in python? 
 methods with double underscore are dunder methods, ex: __init__(), __main__()
 
-what is decorator?
+####what is decorator?
 refer below
 
-what is unit test? why?
+####what is unit test? why?
 closure in python -> wrapper function
 a closure is afunction object that remembers values in encloseing scpoes even if they are not present in memory
 
 
 
-what standard/flow of coding are you following?
+####what standard/flow of coding are you following?
 we following we write the required code first and then unit test in django test.py files. performance test and stress test is done before production.
 
 
 
-------------------------------------------------------TESTING-----------------------------------------------------
+####------------------------------------------------------TESTING-----------------------------------------------------
 
-types of testing?
+####types of testing?
 Unit Testing: It focuses on the smallest unit of software design.It is often done by the programmer by using sample input and observing its corresponding outputs. 
 
-Integration Testing:
+####Integration Testing:
 The objective is to take unit tested components and build a program structure that has been dictated by design.
 
-White Box testing and Black Box testing?
+####White Box testing and Black Box testing?
  Black Box testing: It is used for validation. 
 In this we ignore internal working mechanism and 
 focuse on what is the output?
 
-White Box testing:- It is used for verification. 
+####White Box testing:- It is used for verification. 
 In this we focus on internal mechanism i.e.
 how the output is achieved?
 
-Regression Testing:
+####Regression Testing:
 Every time a new module is added leads to changes in the program. This type of testing makes sure that the whole component works properly even after adding components to the complete program. 
 
 
-Stress Testing:
+####Stress Testing:
 In this, we give unfavorable conditions to the system and check how they perform in those conditions.
 
- Performance Testing
+####Performance Testing
 It is designed to test the run-time performance of software within the context of an integrated system.
 
 
 -------------------------------------------------------processes and threads ------------------------------
 
-diff between multiprocess and multithreading?
+####diff between multiprocess and multithreading?
 
 lib used:
 multithreading:
@@ -269,6 +271,7 @@ Threads uniquely run in the same unique memory heap. Whereas Processes run in se
 
 example:
 multi process:
+```
 p1 = multiprocessing.Process(target=print_square, args=(10, ))
 p2 = multiprocessing.Process(target=print_cube, args=(10, ))
 # starting process 1
@@ -293,7 +296,7 @@ t2.start()
 t1.join()
 # wait until thread 2 is completely executed
 t2.join()
-
+```
 
 
 -------------------------------------------------------OOPS---------------------------------------------------------
