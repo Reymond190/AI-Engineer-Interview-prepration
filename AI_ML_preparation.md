@@ -1,7 +1,7 @@
 #### How LangChain chains work, tools, memory, agents.
 A chain sequences multiple components (e.g., prompts, LLMs, or tools) to process inputs and produce outputs in a structured way.
 
-####Whats langchain?
+#### Whats langchain?
 LangChain is a framework designed to simplify the development of applications powered by large language models (LLMs) by providing modular components for chaining together prompts, tools, memory, and agents.
 
 example chain:
