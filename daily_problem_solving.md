@@ -323,4 +323,385 @@ Raises an exception
 
 ---
 
-These questions are very similar to what you'll encounter in Python interviews. If you're preparing seriously, I can also create a **[30-question daily quiz](chatgpt://followup-prompt?start_index=3226&end_index=3248)** that gradually increases in difficulty from basic comprehensions to advanced nested comprehensions, generators, lambda functions, closures, and iterator behavior.
+Nice attempt! You got most of the easier ones right. Let's go through each, especially the ones you weren't sure about.
+
+| Question | Your Answer | Correct |
+|----------|-------------|---------|
+| Q1 | A ✅ | ✅ |
+| Q2 | B ✅ | ✅ |
+| Q3 | D ❌ | **A** |
+| Q4 | Don't know | **A** |
+| Q5 | Don't know | **A** |
+| Q6 | A ✅ | ✅ |
+| Q7 | Don't know | **A** |
+| Bonus | A ✅ | ✅ |
+
+That's **5/8 correct**. Now let's understand the tricky ones.
+
+---
+
+# Q3 — if-else inside a list comprehension
+
+```python
+nums = [1, 2, 3, 4]
+
+result = ["Even" if x % 2 == 0 else "Odd" for x in nums]
+```
+
+Many people confuse this syntax.
+
+The general form is:
+
+```python
+[value_if_true if condition else value_if_false
+ for item in iterable]
+```
+
+Notice that the `if ... else` comes **before** the `for`.
+
+Let's evaluate it.
+
+```
+x = 1
+1 % 2 == 0 → False
+=> "Odd"
+
+x = 2
+True
+=> "Even"
+
+x = 3
+False
+=> "Odd"
+
+x = 4
+True
+=> "Even"
+```
+
+Result:
+
+```python
+['Odd', 'Even', 'Odd', 'Even']
+```
+
+---
+
+## There are actually two different kinds of `if` in list comprehensions.
+
+### 1. Filtering
+
+```python
+[x for x in nums if x % 2 == 0]
+```
+
+means
+
+```python
+for x in nums:
+    if x % 2 == 0:
+        ...
+```
+
+---
+
+### 2. Conditional expression
+
+```python
+["Even" if x % 2 == 0 else "Odd" for x in nums]
+```
+
+means
+
+```python
+for x in nums:
+    if x % 2 == 0:
+        append("Even")
+    else:
+        append("Odd")
+```
+
+Very different!
+
+---
+
+# Q4 — Nested loops
+
+```python
+result = [(i, j)
+          for i in range(2)
+          for j in range(3)]
+```
+
+The biggest trick is remembering:
+
+A list comprehension follows the same order as nested `for` loops.
+
+Imagine writing it normally:
+
+```python
+result = []
+
+for i in range(2):
+    for j in range(3):
+        result.append((i, j))
+```
+
+Now execute it mentally.
+
+```
+i = 0
+
+    j = 0
+    append (0,0)
+
+    j = 1
+    append (0,1)
+
+    j = 2
+    append (0,2)
+
+i = 1
+
+    j = 0
+    append (1,0)
+
+    j = 1
+    append (1,1)
+
+    j = 2
+    append (1,2)
+```
+
+Result:
+
+```python
+[(0,0),
+ (0,1),
+ (0,2),
+ (1,0),
+ (1,1),
+ (1,2)]
+```
+
+**Golden rule:**
+
+> Read list comprehensions exactly like nested `for` loops.
+
+---
+
+# Q5 — Nested loops with a condition
+
+```python
+result = [
+    (i, j)
+    for i in range(3)
+    for j in range(3)
+    if i != j
+]
+```
+
+Expand it:
+
+```python
+result = []
+
+for i in range(3):
+    for j in range(3):
+        if i != j:
+            result.append((i, j))
+```
+
+Let's execute it.
+
+---
+
+### i = 0
+
+```
+j = 0
+
+0 != 0 ❌
+
+skip
+
+j = 1
+
+0 != 1 ✅
+
+append (0,1)
+
+j = 2
+
+0 != 2 ✅
+
+append (0,2)
+```
+
+Current result
+
+```python
+[(0,1), (0,2)]
+```
+
+---
+
+### i = 1
+
+```
+j = 0
+
+append (1,0)
+
+j = 1
+
+skip
+
+j = 2
+
+append (1,2)
+```
+
+Result
+
+```python
+[(0,1),
+ (0,2),
+ (1,0),
+ (1,2)]
+```
+
+---
+
+### i = 2
+
+```
+j = 0
+
+append (2,0)
+
+j = 1
+
+append (2,1)
+
+j = 2
+
+skip
+```
+
+Final result
+
+```python
+[(0,1),
+ (0,2),
+ (1,0),
+ (1,2),
+ (2,0),
+ (2,1)]
+```
+
+---
+
+# Q7 — Multiple `if`s
+
+```python
+nums = range(10)
+
+result = [
+    x
+    for x in nums
+    if x % 2 == 0
+    if x > 4
+]
+```
+
+This looks strange, but it's just equivalent to:
+
+```python
+for x in nums:
+    if x % 2 == 0:
+        if x > 4:
+            append(x)
+```
+
+Evaluate each number:
+
+```
+0
+
+even
+
+not >4
+
+skip
+
+2
+
+even
+
+not >4
+
+skip
+
+4
+
+even
+
+not >4
+
+skip
+
+6
+
+even
+
+>4
+
+append
+
+8
+
+even
+
+>4
+
+append
+```
+
+Answer:
+
+```python
+[6, 8]
+```
+
+---
+
+## A trick that will help in every interview
+
+Whenever you see a complicated list comprehension, rewrite it as ordinary loops first.
+
+For example,
+
+```python
+[(i, j)
+ for i in range(3)
+ for j in range(2)
+ if i != j]
+```
+
+Immediately rewrite it as:
+
+```python
+result = []
+
+for i in range(3):
+    for j in range(2):
+        if i != j:
+            result.append((i, j))
+```
+
+Once it's written like this, the answer is usually straightforward.
+
+---
+
+Since you got the basics down, the next step is to practice more challenging patterns. I can give you another set with topics like nested list comprehensions, `enumerate()`, `zip()`, dictionary comprehensions, generator expressions, variable shadowing, and scope—these are common in Python interviews and often trip people up.
