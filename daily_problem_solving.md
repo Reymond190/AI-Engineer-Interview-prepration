@@ -1103,3 +1103,402 @@ Pause and ask:
 5. **Do I truly need every pair?** → If yes, the nested loop may already be optimal.
 
 For Python and coding interviews, mastering these patterns will let you replace many O(n²) solutions with O(n) or O(n log n) alternatives.
+
+That's a great approach. Since you're preparing for Python/AI/backend interviews, don't just memorize these patterns—**discover** them by solving problems. Below is a progression from easy to harder problems. For each one, first write the brute-force solution, analyze its complexity, and then try to optimize it.
+
+---
+
+# Level 1 — Use a Set
+
+## Problem 1: Contains Duplicate
+
+Given a list of integers, return `True` if any value appears at least twice.
+
+Example:
+
+```python
+nums = [1, 2, 3, 1]
+
+Output:
+True
+```
+
+**Challenge:** Solve it first with nested loops, then optimize to **O(n)**.
+
+---
+
+## Problem 2: Missing Number
+
+Given numbers from `0` to `n`, one number is missing.
+
+```python
+nums = [3, 0, 1]
+
+Output:
+2
+```
+
+Can you avoid checking every possible number with nested loops?
+
+---
+
+# Level 2 — Dictionary (HashMap)
+
+## Problem 3: Two Sum
+
+Given:
+
+```python
+nums = [2, 7, 11, 15]
+target = 9
+```
+
+Return the indices of the two numbers whose sum equals the target.
+
+Example output:
+
+```python
+[0, 1]
+```
+
+**Goal:** Find an **O(n)** solution.
+
+---
+
+## Problem 4: First Non-Repeating Character
+
+Input:
+
+```python
+"leetcode"
+```
+
+Output:
+
+```python
+'l'
+```
+
+Use a dictionary to count occurrences.
+
+---
+
+# Level 3 — Sliding Window
+
+## Problem 5: Maximum Sum Subarray of Size K
+
+Input:
+
+```python
+nums = [2, 1, 5, 1, 3, 2]
+k = 3
+```
+
+Output:
+
+```python
+9
+```
+
+Explanation:
+
+```text
+5 + 1 + 3 = 9
+```
+
+Try solving it first with nested loops, then optimize.
+
+---
+
+## Problem 6: Longest Substring Without Repeating Characters
+
+Input:
+
+```python
+"abcabcbb"
+```
+
+Output:
+
+```python
+3
+```
+
+Because:
+
+```text
+"abc"
+```
+
+---
+
+# Level 4 — Two Pointers
+
+## Problem 7: Pair with Target Sum
+
+Sorted array:
+
+```python
+nums = [1, 2, 4, 4]
+target = 8
+```
+
+Return:
+
+```python
+True
+```
+
+Don't use nested loops.
+
+---
+
+## Problem 8: Remove Duplicates from Sorted Array
+
+Input:
+
+```python
+[1,1,2,2,3,4,4]
+```
+
+Modify the list in place so each element appears only once.
+
+---
+
+# Level 5 — Prefix Sum
+
+## Problem 9: Range Sum Query
+
+Array:
+
+```python
+nums = [2,4,5,7,8]
+```
+
+You'll receive many queries like:
+
+```text
+sum(1,3)
+
+Output:
+16
+```
+
+How can you answer each query in **O(1)** after preprocessing?
+
+---
+
+# Level 6 — Binary Search
+
+## Problem 10: Search Insert Position
+
+Input:
+
+```python
+nums = [1,3,5,6]
+target = 2
+```
+
+Output:
+
+```python
+1
+```
+
+Don't scan linearly.
+
+---
+
+# Level 7 — Stack
+
+## Problem 11: Valid Parentheses
+
+Input:
+
+```python
+"({[]})"
+```
+
+Output:
+
+```python
+True
+```
+
+---
+
+## Problem 12: Next Greater Element
+
+Input:
+
+```python
+[2,1,2,4,3]
+```
+
+Output:
+
+```python
+[4,2,4,-1,-1]
+```
+
+Try the brute-force solution first, then think about how a stack can help.
+
+---
+
+# Level 8 — Dynamic Programming
+
+## Problem 13: Climbing Stairs
+
+There are `n` stairs.
+
+You can climb either:
+
+- 1 step
+- 2 steps
+
+Example:
+
+```python
+n = 5
+
+Output:
+8
+```
+
+First solve recursively, then optimize.
+
+---
+
+## Problem 14: House Robber
+
+```python
+houses = [2,7,9,3,1]
+```
+
+You can't rob adjacent houses.
+
+Maximum amount?
+
+---
+
+# Level 9 — Interview-Level Mixed Problems
+
+## Problem 15: Group Anagrams
+
+Input:
+
+```python
+["eat","tea","tan","ate","nat","bat"]
+```
+
+Output:
+
+```python
+[
+ ["eat","tea","ate"],
+ ["tan","nat"],
+ ["bat"]
+]
+```
+
+---
+
+## Problem 16: Top K Frequent Elements
+
+Input:
+
+```python
+nums = [1,1,1,2,2,3]
+k = 2
+```
+
+Output:
+
+```python
+[1,2]
+```
+
+---
+
+## Problem 17: Product of Array Except Self
+
+Input:
+
+```python
+[1,2,3,4]
+```
+
+Output:
+
+```python
+[24,12,8,6]
+```
+
+Solve it **without division**.
+
+---
+
+# Problem 18: Merge Intervals
+
+Input:
+
+```python
+[[1,3],[2,6],[8,10],[15,18]]
+```
+
+Output:
+
+```python
+[[1,6],[8,10],[15,18]]
+```
+
+---
+
+# Problem 19: Merge Two Sorted Arrays
+
+Input:
+
+```python
+nums1 = [1,3,5]
+nums2 = [2,4,6]
+```
+
+Output:
+
+```python
+[1,2,3,4,5,6]
+```
+
+Can you do it in **O(n + m)**?
+
+---
+
+# Problem 20: 3Sum (Classic Interview Problem)
+
+Input:
+
+```python
+[-1,0,1,2,-1,-4]
+```
+
+Return all unique triplets whose sum is zero.
+
+---
+
+## How to practice
+
+For each problem:
+
+1. **Write the brute-force solution** (even if it's O(n²) or worse).
+2. **State its time and space complexity**.
+3. **Ask yourself:** *What is the inner loop really doing?*
+4. **Identify the pattern**:
+   - Lookup → Set/Dictionary
+   - Sorted data → Two pointers/Binary search
+   - Consecutive window → Sliding window
+   - Range queries → Prefix sums
+   - Matching brackets → Stack
+   - Overlapping subproblems → Dynamic programming
+5. **Write the optimized solution** and compare complexities.
+
+This habit will help you recognize optimization opportunities during interviews instead of relying on memorized solutions.
