@@ -534,6 +534,35 @@ class Observer:
     def update(self, subject):
         pass
 #### ---------------------------------------------------FINE TUNING ----------------------------------------
+#### whats GRPO?
+
+Group Relative Policy Optimization (GRPO) is a highly efficient reinforcement learning (RL) algorithm used to fine-tune Large Language Models (LLMs)—most notably pioneered by DeepSeek to train their DeepSeek-R1 reasoning models. Unlike older RL alignment techniques like Proximal Policy Optimization (PPO), GRPO eliminates the need for a separate Critic (Value) model. Instead, it updates the language model by generating a group of responses for a single prompt and scoring them relative to one another. [1, 2, 3, 4] 
+This optimization dramatically cuts GPU memory usage and computational overhead, making it the go-to method for training models to "think," follow complex formatting rules, and master step-by-step logical reasoning. [5, 6] 
+------------------------------
+## How GRPO Fine-Tuning Works
+Traditional Supervised Fine-Tuning (SFT) teaches a model what to think by imitating gold-standard datasets. GRPO teaches a model how to think by exploring multiple paths and rewarding the best results. The process follows four core steps: [7, 8, 9, 10] 
+
+   1. Group Generation: For a given prompt, the current policy model generates a group of N different completions (typically between 4 to 8 outputs). [6, 11, 12, 13] 
+   2. Reward Scoring: Each completion is evaluated using one or more custom reward functions. These functions scan the output to check criteria like mathematical correctness, XML formatting, or code compilation. [2, 6, 14, 15, 16] 
+   3. Relative Advantages: The algorithm calculates the mean and standard deviation of the scores within that specific group. Outputs that score above the group average receive a positive advantage, while below-average outputs receive a negative advantage. [2, 4, 6] 
+   4. Policy Update: The model's weights are optimized to make positive-advantage outputs more likely in the future. A Kullback-Leibler (KL) divergence penalty is built into the calculation to prevent the model from drifting too far from its original base knowledge. [2, 6, 17] 
+
+------------------------------
+## Key Advantages over PPO and DPO
+
+| Feature | PPO (Proximal Policy Optimization) | DPO (Direct Preference Optimization) | GRPO (Group Relative Policy Optimization) |
+|---|---|---|---|
+| Memory Footprint | High (Requires active Policy, Reference, Reward, and Critic models). | Low (Requires active Policy and Reference models; no reward modeling). | Low-to-Medium (Saves up to 50% memory compared to PPO by dropping the Critic model). |
+| Data Requirement | Requires a pre-trained reward model built on human preferences. | Requires pairwise preference data (Chosen vs. Rejected). | Works with unlabeled prompts and custom programmatic Python reward functions. |
+| Best Used For | General human preference alignment (helpful/harmless). | Offline preference alignment when computation is constrained. | Verifiable reasoning tasks (Math, Code, logic games, structured formats). |
+
+------------------------------
+## Implementing GRPO Fine-Tuning
+You can easily fine-tune an LLM using GRPO locally or in the cloud using open-source libraries like Hugging Face's [TRL (Transformer Reinforcement Learning) Library](https://huggingface.co/learn/cookbook/fine_tuning_llm_grpo_trl) or optimized training frameworks like Unsloth. [3, 18] 
+
+
+
+
 #### whats ORPO?
 
 That is completely fair. ORPO is a relatively new concept, and it flips the traditional way we align LLMs on its head.
