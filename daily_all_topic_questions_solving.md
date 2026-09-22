@@ -533,3 +533,17 @@ To catch active compromise or bypasses in production, emit structured security e
 3. **Sandbox Egress Volumetrics:** Any network calls originating from the remote sandbox that target IP spaces not on the default dependency registry allowlist (e.g., npmjs, PyPI).
 
 
+## RAG question 22-09-2026
+
+You are building a production RAG system for a SaaS platform that indexes customer-uploaded PDFs, slide decks, and scanned invoices alongside a shared product documentation corpus. Retrieval quality is strong on clean text docs, but fails on three recurring patterns: (1) tables and pricing matrices embedded in PDFs lose structure after naive text extraction, causing the retriever to return numerically plausible but wrong tier/pricing answers; (2) scanned invoices with OCR noise ("Inv0ice #1O234") are never retrieved for exact-ID lookups; (3) multi-hop questions like "Which customers on the Enterprise plan exceeded their API quota last month?" require joining facts across a customer's uploaded contracts and shared billing policy docs, but your single-pass dense retrieval pipeline returns isolated chunks from only one source. Design an end-to-end architecture that addresses structured document parsing, OCR-aware indexing, and multi-hop retrieval without blowing past a 600 ms p95 retrieval budget at 100 QPS. Specifically cover: document ingestion and layout-aware chunking, when to use multi-vector or late-interaction retrieval vs. cross-encoders, query planning/decomposition strategies, metadata and access-control filtering in a multi-tenant index, and an offline evaluation harness that measures faithfulness on tabular and multi-hop queries—not just nDCG on keyword overlap.
+
+
+keywords understanding:
+**multi-vector/ late interaction retrieval  (colbert method):** matching score between the query and the document is calculated by taking each token in query and doing dot product of all tokens in the document. 
+**decompostion strategy:** breaking a single query in to multiple queries.
+**metadata and access-control filtering in multi-tenant index:**Metadata and access-control filtering in a multi-tenant index (such as a shared vector database or search index) is a technique where data from multiple users or organizations (tenants) are stored together in a single index, but individual records are tagged with attributes—like tenant_id, role, or department—so that search queries only return results the active user is authorized to see
+**offline evaluation harness**: An offline evaluation harness is a pre-release testing system that runs an AI model or application against a fixed, curated dataset to measure its quality, safety, and behavior before deployment
+
+
+
+
