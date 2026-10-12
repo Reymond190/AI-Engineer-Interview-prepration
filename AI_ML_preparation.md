@@ -893,3 +893,212 @@ When a user complains about a "bad report," debugging requires reconstructing th
 * **Token Usage & Latency:** Tracking P95/P99 latencies per agent node to identify where the 20-minute bottleneck lies.
 * **Validation Reject Rate:** The frequency at which the *Validate Agent* routes the workflow backward. A spike indicates a degradation in synthesis quality or an out-of-distribution user query.
 
+
+interview preparation for "AI transformation leader" qatar,
+taking points regarding AI transformation and AI governance:
+AI transformation:
+1. ai assisted architecture design: 
+2.  data migration activity (moving data  between databases)
+3.  Context-Aware Prompt Libraries: (Code Refactoring ) (Automated Unit Test Generation )
+4.  SDLC Workflow to review code: LLM step in GitHub/GitLab PRs to automatically analyze architectural compliance and security flaws before a human even reviews it .
+AI Governance, Security, and Compliance:
+1. LLM Observability and Tracing (using tools like langfuse) 
+2. Enterprise AI gateway: to enforce rate-limiting, cost tracking per business unit, and to abstract LLM provider APIs so developers don't call OpenAI/Anthropic directly 
+3. Implementing Guardrails:
+guardrails (like NeMo Guardrails or Llama Guard). Mention implementing defenses against Prompt Injection and verifying that AI-generated code.
+
+AI Platform Integration:
+Advanced RAG & Knowledge Bases: Don't just say RAG. Say you built Hybrid Search RAG (combining Vector Embeddings with Keyword/BM25 search) using enterprise knowledge base 
+Agentic Workflows: an agent that takes a Jira ticket, reviews the codebase, drafts a solution, and opens a draft Pull Request automatically.
+
+
+LLMs————-
+
+1. Whats a transformer?
+
+Transformer is the neural network architecture that powers most modern AI models and LLMs.
+
+Input text -> Tokenisation -> embeddings -> attention layers -> feed forward - > output prediction 
+
+2. What is attention?
+
+Attention is the mechanism that allows the model to look back at the prompt and its own growing answer to decide exactly which word should come next.
+
+attention is like a spotlight that helps the model decide which earlier words are most important when generating the next token.
+
+think of it like a highly advanced database search. Every token in your prompt is assigned three vectors (mathematical representations):
+ Query (Q): What the current word is looking for.
+ Key (K): What past words contain (their "index card" or tags).
+ Value (V): The actual semantic meaning or content of those past words.
+
+
+
+
+
+
+
+----------------------------------------GCP-----------------------------------
+
+whats bigquery?
+BigQuery is Google Cloud Platform’s (GCP) fully managed, serverless data warehouse designed for analyzing large datasets quickly and efficiently using SQL.
+
+BigQuery lets you store, query, and analyze massive amounts of data (terabytes or petabytes) without needing to manage any infrastructure — no servers, no tuning, no indexing.
+
+--------------------------------------FASTAPI------------------------------------
+
+How would you structure a production-ready FastAPI application?
+ Ideal: Use a clean, modular layout (routers per domain, models, schemas, services, repositories, dependencies, core/config). Keep business logic out of endpoints — place it in service or use-case layers. Use pydantic for validation, dependency injection for resources (DB, caches), async DB clients (e.g., SQLModel/SQLAlchemy+asyncpg), background workers for long tasks, health/readiness endpoints, structured logging, and config via environment variables and a central settings object. Add tests, CI, containerization, and an infra-ready entrypoint (uvicorn/gunicorn + workers).
+
+Can you explain how dependency injection works in FastAPI?
+ Ideal: FastAPI allows declaring callable dependencies in endpoint signatures; it resolves and caches them per request. Use Depends() to inject DB sessions, auth, config or other resources. Dependencies can be async or sync and composed, which makes testing and swapping components easier.
+
+Differences between Flask, FastAPI, and Django in performance and use-cases?
+ Ideal: Flask is minimal and flexible — great for lightweight APIs and microservices. FastAPI is modern, async-first, uses pydantic for validation, and typically outperforms Flask for I/O-bound workloads. Django is a batteries-included full-stack framework (ORM, admin, templating) suited for monoliths and apps needing rich built-in features. Choose by project complexity, team familiarity, and need for async performance or built-in components.
+
+How do you handle background tasks or scheduled jobs in FastAPI?
+ Ideal: Offload heavy/long-running work to task queues (Celery, RQ, Dramatiq) or async workers; use message brokers like Redis/RabbitMQ. For scheduled jobs use Celery beat or APScheduler (with caution in multi-instance deployments). Keep task idempotent, use retries/backoff, and store status in DB or task backend.
+
+How do you ensure API versioning and backward compatibility?
+ Ideal: Version at the URL (/v1/...) or with headers; maintain backward compatible changes (additive changes) and deprecate old fields gradually. Use feature flags and semantic versioning for breaking changes; provide shim layers or adapters when migrating. Maintain tests that assert previous contract behavior.
+
+How would you optimize a slow API endpoint?
+ Ideal: Profile to find the bottleneck (DB, external calls, CPU work). Add caching (Redis, CDN), optimize DB (indexes, query tuning, batching), move heavy work to background tasks, parallelize I/O with async, use pagination/limits, and consider horizontal scaling or read replicas.
+
+Explain how you’d design rate-limiting or request throttling in an API service.
+ Ideal: Implement token-bucket/leaky-bucket using API gateway (Cloudflare, API Gateway), ingress (NGINX), or middleware that uses Redis for distributed counters. Enforce per-user and per-IP limits, differentiate tiers, return Retry-After and descriptive error codes, and log/monitor for abuse.
+
+How would you handle long-running tasks (Celery/RQ/Kafka) in FastAPI?
+ Ideal: Push tasks to a queue from FastAPI endpoints, return immediate acknowledgment with a task id. Use Celery/RQ workers to process jobs, persist results/metadata in DB or object storage, and provide endpoints to poll or webhook on completion. Ensure idempotency, retries, and proper visibility/timeouts.
+
+How do you ensure scalability for a high-traffic REST API?
+ Ideal: Design stateless services, use autoscaling groups or containers (ECS/EKS), employ load balancers, use caching layers (Redis, CDN), shard/replicate DBs, optimize queries, use async I/O, and implement circuit breakers for downstream dependencies. Automate CI/CD and use observability (metrics/logs/tracing).
+
+Describe your approach to error handling and custom middleware design.
+ Ideal: Centralize error handling with structured exceptions and one global exception handler that maps to proper status codes. Use middleware for cross-cutting concerns (auth, rate-limiting, request id injection, logging, metric collection) and keep middleware lightweight. Return consistent error schema and instrument errors with correlation IDs.
+
+
+
+--------------------------agents and multi agents --------------------------------
+1. Designing technical architecture for multi-agent systems.
+
+what is multi-agent-systems? and how did you use it?
+ans: multi agent systems, an agent is an llm that can do tool calls, when the usecase has huge no of tool calling, you need a multiple agents. and there are architectures to handle them efficiently,
+ Supervisor: handoff from supervisor to agent ( works like a contractor and manager, where manager gives the contractor task to complete and contractor completes and gives it back to the manager, you can add as many as contractors needed.).
+Swarm: handoff between agents, flight and hotel booking agents, when user asks for flight booking, handoff from (last active agent) to flight agent and viseversa.
+
+Types of Agents:
+Simple Reflex Agents: 
+Model-Based Reflex Agents
+ Goal-Based Agents:
+Learning Agents
+Utility-based Agents
+Multi-Agent Systems (MAS):
+
+
+
+2. Lead technical decision-making and code reviews:
+you are techinical lead what decisions will you have to make:
+i would have decide for the project as well as the team, i think i would have to make decisions regarding, architecture, system designs, about fault tolerance, scalability, security, testing, etc.
+3. Mentor junior developers on agentic design patterns.
+
+agent design patterns:
+ReAct (Reason + Act) - Thought, Action and Observation.
+Reflexion (self-reflection & correction) - The agent evaluates its own responses, after detection a mistake, the agent generates a reflection and stores the reflection in memory, which guarentees improved future behaviour. 
+Chain-of-Agents (sequential orchestration) - (Numico) Document Analysis: basically uses agentic rag, it has multiple agents, retriever agent, summarizer agent and doc comparison agent
+Debate & Critic patterns:
+Planner–Executor–Critic loop - Planner Agent → Breaks down the task into steps or subgoals. Executor Agent → Carries out the steps (tool use, reasoning, coding, retrieval).Critic Agent → Reviews the execution, catches errors, suggests fixes or improvements.
+
+
+Explain how a multi-agent workflow works.
+ Ideal: Multiple specialized agents (e.g., information retriever, planner, verifier, tool executor) coordinate via a messaging protocol or orchestrator. A manager composes tasks, routes inputs/outputs, and enforces policies. Communication can be synchronous or async; state and memory are shared or persisted for continuity.
+
+When would you choose LangChain vs. AutoGen vs. CrewAI?
+ Ideal: Choose based on abstraction and tooling fit: LangChain is excellent for prompt+chain composition and RAG workflows; AutoGen (or similar) is helpful when building programmatic agent interactions and tool-use orchestration; CrewAI/Crew-like frameworks focus on multi-agent collaboration patterns. Evaluate library maturity, features, integrations (vector DBs, toolkits), and team familiarity.
+
+How do you prevent agents from looping or conflicting?
+ Ideal: Implement timeouts and loop counters, use supervisor/arbiter agents to validate actions, enforce idempotency and action constraints, and design clear contracts for agent responsibilities. Add conflict-resolution policies, centralized state, and a bounded step budget per task.
+
+How would you design architecture for an AI assistant team solving tasks?
+ Ideal: Define agent roles (planner, retriever, executor, verifier), use a message bus for communication, persist shared memory and logs, have an orchestrator to assign subtasks and aggregate results, and expose a tooling interface for external APIs. Include safety checks, observability, and rollback on failures.
+
+Explain how agent memory works and how you’d persist it.
+ Ideal: Memory stores previous interactions, context, and facts. Keep short-term memory in RAM for fast access and long-term memory persisted to a DB or vector store (embeddings + metadata). Use expiration/decay policies, privacy contro
+
+-----------------------------_VECTOR DATABASES-------------------------------
+
+Difference between exact search and approximate nearest neighbors (ANN).
+ Ideal: Exact search computes exact distances across all vectors — accurate but slow at scale. ANN uses indexed structures (IVF, HNSW) to retrieve near neighbors faster with a controllable tradeoff between recall and speed. ANN is used for scale and low latency.
+
+How do you build and store embeddings efficiently?
+ Ideal: Precompute embeddings offline, compress or quantize vectors if needed, batch writes to the vector DB, include document metadata for retrieval, and use a lifecycle policy for stale embeddings. Use sharding/partitioning for scale and store raw text separately with pointers to embeddings.
+
+When should FAISS be preferred over Pinecone, and vice-versa?
+ Ideal: Use FAISS when you want a self-hosted, highly customizable ANN index for on-prem or cost-sensitive use and need full control over indexing parameters. Use Pinecone for a managed, production-ready service with auto-scaling, easy APIs, and less operational overhead. Choose based on ops burden, features, and latency/SLA needs.
+
+What is hybrid search (full-text + vector)? When to use it?
+ Ideal: Hybrid search combines vector similarity with lexical/full-text ranking (BM25) to benefit from semantic matching and exact keyword matches. Use it when users expect both precise keyword hits and semantic relevance — e.g., enterprise search with technical terms.
+
+How do you update or delete embeddings safely?
+ Ideal: Use transactional updates where possible: mark vectors as stale and write new embeddings, then garbage-collect. Maintain idempotent operations and version metadata. For deletes, remove from index and purge associated metadata; for updates, reindex affected shards and ensure reads are consistent (use soft-deletes + eventual GC in distributed systems).
+
+Explain how to scale vector search for millions of documents.
+ Ideal: Use ANN indices (HNSW/IVF + PQ), shard the dataset, use multiple replicas, serve on GPU/CPU optimized instances, and cache hot queries. Optimize retrieval by narrowing candidates (semantic filters, metadata pre-filters), and monitor recall/latency tradeoffs.
+
+What index types exist in FAISS, and when to use each?
+ Ideal: Examples: Flat (exact, small datasets), IVF (inverted file, coarse clustering for large sets), HNSW (graph-based fast recall), PQ/OPQ (product quantization for compression), and combinations (IVF+PQ) for large-scale with memory constraints. Choose based on dataset size, memory, and recall/latency needs.
+
+How do you evaluate retrieval quality? (precision@k, MRR, recall@k)
+Mean Reciprocal Rank (MRR) is a retrieval metric that measures the average position of the first relevant item in a ranked list of results.
+ Ideal: Use ranking metrics: precision@k and recall@k for relevance coverage, MRR for single-best relevance, NDCG for graded relevance, and human evaluation for semantic fidelity. Run A/B tests and offline benchmarks with labeled queries.
+
+How do you design a multi-tenant vector DB architecture?
+ Ideal: Isolate tenants via namespaces or separate indexes, enforce quotas and rate limits, encrypt tenant data, and plan resource allocation (shards, compute). Use metadata scoping for fast tenant filtering, and consider dedicated clusters for high-value tenants.
+
+Typical performance bottlenecks in vector retrieval?
+ Ideal: Disk I/O/memory limits causing swaps, unoptimized index parameters, network latency between app and vector DB, hot partitions, and heavy metadata filtering. Fix with tuning, caching, sharding, and moving indices to memory or GPUs.
+
+When implementing RAG diagnostics for hallucination detection, which method demonstrates the highest recall but suffers from lower precision compared to an LLM prompt-based detector?
+
+BERT stochastic checker = this achieves recall of 0.90
+
+According to benchmarks comparing unified data layers (PostgreSQL + pgvector) to conventional three-tool stacks, what was the observed latency reduction for date-filtered queries in the unified architecture?
+
+unified approach is significantly faster, it is helpful to look at how these two systems handle a query like "Show me the latest compliance documents updated this quarter".
+Conventional 3-Tool Stack: This architecture typically splits data across a vector database (for similarity), a relational database (for metadata like dates or categories), and a cache layer. To answer a filtered query, the application must perform multiple round trips to these separate systems and then merge the results in application code. This "glue code" often grows to thousands of lines and becomes a primary source of latency and production incidents.
+
+Whats is Sparse Retriever? 
+Sparse Retriever: This is traditional keyword matching (like BM25). It looks for exact word matches, codes, serial numbers, or specific names. It is fast and ensures precise terms are not ignored.
+
+Whats is Dense  Retriever? 
+Dense Retriever: This is semantic vector search. It captures the underlying meaning, context, and synonyms of the query, even if the user uses different words than the source text.
+
+
+In rag, Whats reciprocal rank fusion (RRF)?
+Imagine a user searches for "how to fix a leaky faucet".
+Instead of choosing between a keyword search and a vector search, a hybrid system runs both simultaneously. RRF takes the two independent result lists and blends them into one definitive list. [1, 2, 3, 4]
+Here is a step-by-step example of how RRF processes one specific document (let's call it Doc A) using the standard constant (k = 60):
+Keyword Search Runs: Doc A matches the exact words "leaky faucet" perfectly. It ranks #2 in this list.
+Vector Search Runs: Doc A matches the semantic meaning of plumbing repair well. It ranks #5 in this list.
+RRF Calculates the Score: It calculates a score for Doc A by adding its reciprocal ranks together:
+RRF repeats this for every document, sorts the final scores from highest to lowest, and gives you the final hybrid list. [
+
+Why This is Helpful (The Problem it Solves)
+Without RRF, combining these two searches is incredibly difficult because you are comparing apples to oranges:
+
+what is Cross-Encoder Re-ranker ?
+To get perfect accuracy, the unified list (usually just the top 20–50 results) is handed to a Cross-Encoder Re-ranker. 
+-vThis is a powerful, deep-learning AI model (like a mini-BERT).
+- It analyzes the full sentence structure of the query and the document together to determine exact contextual relevance.
+- It rearranges the final list one last time to ensure the absolute most accurate answer is at #1. 
+- Issues can occur for certain usecases like legal based usecases. alternative would be cross encoder re-ranker.
+
+
+
+
+
+
+
+
+
+
+
