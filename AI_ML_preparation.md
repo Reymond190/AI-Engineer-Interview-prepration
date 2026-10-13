@@ -98,14 +98,15 @@ print(result["messages"][-1]["content"])
 CODING ROUND PREPARATION:
 Here's a simple breakdown of each concept with easy-to-understand examples:
 
-Data Structures
-Trees
+### Data Structures
+#### Trees
 
 Like a family tree.
 
 Example: Binary Search Tree (BST)
 
 python
+```
 class Node:
     def __init__(self, val):
         self.val = val
@@ -114,13 +115,15 @@ class Node:
 root = Node(10)
 root.left = Node(5)
 root.right = Node(15)
-Graphs
+```
+#### Graphs
 
 Like a social network (nodes = people, edges = friendships).
 
 Example: Adjacency List
 
 python
+```
 graph = {
     'A': ['B', 'C'],
     'B': ['A', 'D'],
@@ -128,17 +131,20 @@ graph = {
     'D': ['B']
 }
 Heaps (Priority Queue)
-
+```
 A tree where the smallest (min-heap) or largest (max-heap) element is at the top.
 
 Example:
 
 python
+```
 import heapq
 heap = []
 heapq.heappush(heap, 5)
 heapq.heappush(heap, 2)
 print(heapq.heappop(heap))  # 2 (smallest comes first)
+```
+
 Tries (Prefix Tree)
 
 Used for autocomplete (e.g., searching words).
@@ -146,19 +152,22 @@ Used for autocomplete (e.g., searching words).
 Example:
 
 python
+```
 class TrieNode:
     def __init__(self):
         self.children = {}
         self.is_end = False
 root = TrieNode()
+```
 Algorithms
-BFS (Breadth-First Search)
+####BFS (Breadth-First Search)
 
-Level-order traversal (like ripples in water).
+####Level-order traversal (like ripples in water).
 
 Example (on a tree):
 
 python
+```
 from collections import deque
 def bfs(root):
     queue = deque([root])
@@ -167,47 +176,62 @@ def bfs(root):
         print(node.val)
         if node.left: queue.append(node.left)
         if node.right: queue.append(node.right)
-DFS (Depth-First Search)
+```
+
+####DFS (Depth-First Search)
+
 
 Goes deep before wide (like a maze solver).
 
 Example (recursive):
 
 python
+```
 def dfs(node):
     if not node: return
     print(node.val)
     dfs(node.left)
     dfs(node.right)
-Recursion
+```
+
+####Recursion
 
 A function calling itself.
 
 Example (Factorial):
 
 python
+```
 def factorial(n):
     return 1 if n == 0 else n * factorial(n-1)
-Dynamic Programming (DP)
+
+```
+
+
+####Dynamic Programming (DP)
 
 Breaking problems into smaller subproblems (with memoization).
 
 Example (Fibonacci with memoization):
 
 python
+```
 memo = {}
 def fib(n):
     if n in memo: return memo[n]
     if n <= 1: return n
     memo[n] = fib(n-1) + fib(n-2)
     return memo[n]
-Greedy Algorithms
+
+```
+####Greedy Algorithms
 
 Picks the best immediate choice (may not always be optimal).
 
 Example (Coin Change - min coins for amount):
 
 python
+```
 def coin_change(coins, amount):
     coins.sort(reverse=True)
     count = 0
@@ -216,13 +240,16 @@ def coin_change(coins, amount):
             amount -= coin
             count += 1
     return count if amount == 0 else -1
-Sorting
+
+```
+####Sorting
 
 Arranging elements in order.
 
 Example (QuickSort):
 
 python
+```
 def quicksort(arr):
     if len(arr) <= 1: return arr
     pivot = arr[len(arr)//2]
@@ -230,11 +257,12 @@ def quicksort(arr):
     middle = [x for x in arr if x == pivot]
     right = [x for x in arr if x > pivot]
     return quicksort(left) + middle + quicksort(right)
+```
 
 Python Fluency
-List Comprehensions
+####List Comprehensions
 
-Compact way to create lists.
+#####Compact way to create lists.
 
 Example:
 
@@ -242,30 +270,38 @@ python
 squares = [x**2 for x in range(10)]  # [0, 1, 4, 9, ...]
 Lambda (Anonymous Function)
 
-Short one-line functions.
+#### Short one-line functions.
 
 Example:
 
 python
+```
 add = lambda x, y: x + y
 print(add(2, 3))  # 5
 Map/Filter/Reduce
+```
 
-map: Apply a function to all items.
+#### map: Apply a function to all items.
 
 python
+```
 nums = [1, 2, 3]
 squared = list(map(lambda x: x**2, nums))  # [1, 4, 9]
 filter: Keep items that meet a condition.
+```
 
 python
+```
 evens = list(filter(lambda x: x % 2 == 0, nums))  # [2]
 reduce (from functools): Aggregate values.
+```
 
 python
+```
 from functools import reduce
 sum_all = reduce(lambda x, y: x + y, nums)  # 6
-Exception Handling
+```
+####Exception Handling
 
 Gracefully handle errors.
 
@@ -281,7 +317,7 @@ finally:
     print("Done")
 ```
 
-SYSTEM DESIGN:
+###SYSTEM DESIGN:
 Microservices vs Monoliths:
 microservices are small lightweight services work together on larger goal, they are very much scalable and require less services
 
