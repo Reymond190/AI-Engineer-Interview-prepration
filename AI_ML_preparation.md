@@ -160,9 +160,9 @@ class TrieNode:
 root = TrieNode()
 ```
 Algorithms
-####BFS (Breadth-First Search)
+#### BFS (Breadth-First Search)
 
-####Level-order traversal (like ripples in water).
+#### Level-order traversal (like ripples in water).
 
 Example (on a tree):
 
@@ -208,7 +208,7 @@ def factorial(n):
 ```
 
 
-####Dynamic Programming (DP)
+#### Dynamic Programming (DP)
 
 Breaking problems into smaller subproblems (with memoization).
 
@@ -224,7 +224,7 @@ def fib(n):
     return memo[n]
 
 ```
-####Greedy Algorithms
+#### Greedy Algorithms
 
 Picks the best immediate choice (may not always be optimal).
 
@@ -270,7 +270,7 @@ python
 squares = [x**2 for x in range(10)]  # [0, 1, 4, 9, ...]
 Lambda (Anonymous Function)
 
-#### Short one-line functions.
+####  Short one-line functions.
 
 Example:
 
@@ -281,7 +281,7 @@ print(add(2, 3))  # 5
 Map/Filter/Reduce
 ```
 
-#### map: Apply a function to all items.
+####  map: Apply a function to all items.
 
 python
 ```
@@ -301,7 +301,7 @@ python
 from functools import reduce
 sum_all = reduce(lambda x, y: x + y, nums)  # 6
 ```
-####Exception Handling
+#### Exception Handling
 
 Gracefully handle errors.
 
