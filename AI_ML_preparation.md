@@ -178,7 +178,7 @@ def bfs(root):
         if node.right: queue.append(node.right)
 ```
 
-####DFS (Depth-First Search)
+#### DFS (Depth-First Search)
 
 
 Goes deep before wide (like a maze solver).
@@ -194,7 +194,7 @@ def dfs(node):
     dfs(node.right)
 ```
 
-####Recursion
+#### Recursion
 
 A function calling itself.
 
@@ -242,7 +242,7 @@ def coin_change(coins, amount):
     return count if amount == 0 else -1
 
 ```
-####Sorting
+#### Sorting
 
 Arranging elements in order.
 
@@ -260,9 +260,9 @@ def quicksort(arr):
 ```
 
 Python Fluency
-####List Comprehensions
+#### List Comprehensions
 
-#####Compact way to create lists.
+Compact way to create lists.
 
 Example:
 
