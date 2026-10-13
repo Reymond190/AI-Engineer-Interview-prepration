@@ -546,4 +546,125 @@ keywords understanding:
 
 
 
+## 2026-10-11
+
+Category: RAG
+Question:
+Your B2B support RAG stack serves 2,000 tenants from a shared Milvus cluster with per-tenant metadata filters. You deploy a three-stage retriever: bi-encoder ANN (HNSW, ef=128) → a lightweight monoT5-style reranker on top-100 → cross-encoder on top-20 before context assembly. Offline eval shows nDCG@10 gains at each stage, but production sees (1) p95 end-to-end retrieval latency of 1.4 s at 80 QPS, (2) a spike in “correct doc retrieved, wrong answer” tickets where the cross-encoder aggressively promotes FAQ boilerplate over a short, authoritative policy exception clause, and (3) tenant “Acme Corp” reports intermittent empty retrieval despite documents existing—tracing shows their filter key migrated from `tenant_id` to `org_id` in the CRM sync while 12% of vectors still carry stale metadata from a failed partial reindex job. Design how you would restructure the cascade (when to skip stages, dynamic top-k, batching, GPU vs CPU placement), add online quality gates that do not require running the cross-encoder on every query, and operate safe incremental metadata migrations at billion-vector scale without taking the cluster offline. What metrics and shadow experiments would you run to prove you improved faithfulness without missing your 450 ms p95 retrieval SLO?
+
+Answer:
+
+
+-----
+
+## 2026-10-11
+
+Category: LLM Fine-Tuning
+Question:
+You are building an instruction-tuned 32B model for a regulated industry assistant where training data mixes public instruction pairs, licensed third-party Q&A, and 200k internal “gold” examples that must never appear in any public benchmark. You plan SFT followed by DPO, but legal requires: (a) no verbatim memorization of licensed snippets in eval logs, (b) auditable proof of which data shards influenced each checkpoint, and (c) ability to “unlearn” a contaminated shard within 72 hours if a data vendor retracts rights. Describe your end-to-end data governance and training architecture: dataset versioning, shard-level lineage in checkpoints, contamination detection against hold-out canaries, separation of eval sets from training via dedup pipelines, and how you would execute a targeted unlearning or adapter rollback without full retrain from scratch. For DPO specifically, how do you curate preference pairs when reviewer disagreement is high, how do you prevent the policy from overfitting to verbose “safe” rejections, and what offline tests would you require before promoting a new checkpoint?
+
+Answer:
+
+
+-----
+
+## 2026-10-11
+
+Category: AI Agents
+You are shipping a “financial research” agent that must produce a cited memo by calling tools: market data API, EDGAR filings retriever, internal CRM notes (PII-heavy), and a calculator. Product requires every numeric claim in the final memo to trace to either a tool result or an explicit assumption block; the agent may not invent figures. You implement a planner–executor split with a critic node that runs before user-visible output. In staging, you see failure modes: the planner batches too many tool calls and exceeds a $0.40/run cost cap; the executor sometimes uses stale prices when the planner’s subtasks run in parallel; the critic approves memos where citations point to the right filing but the wrong fiscal year; and under load, duplicate tool calls spike when retries lack idempotency keys. Specify your orchestration design (graph/state schema, parallelism rules, caching, idempotency), how the critic verifies numeric claims without re-running expensive tools on every edit, and how you enforce budget and latency SLAs with graceful degradation. What trajectory-level evals and production telemetry would catch citation–claim mismatches before customers do?
+
+
+Answer:
+
+
+-----                                                                                      
+
+## 2026-10-11
+
+Category: Classical ML / Deep Learning (Quant & Market Prediction)
+Question:
+You are researching a cross-sectional alpha signal: predict next-week excess return for US equities using 150 fundamental and alternative features, trained with LightGBM on weekly panels from 2010–2023. In-sample IC looks strong (mean rank IC ≈ 0.06), but combinatorial purged cross-validation with embargo suggests only 0.025 out-of-sample, and a simple paper portfolio with naive top-decile long/short shows Sharpe 2.1 before costs but 0.4 net of estimated impact and fees. Your PM suspects (1) subtle leakage from features computed with end-of-week timestamps that include after-hours corporate actions, (2) overlapping labels causing inflated significance in standard k-fold, and (3) regime shift—signal IC collapses in 2022 high-volatility weeks. Walk through how you would rebuild the labeling pipeline (horizon, neutralization, universe rules), validation protocol (purging, embargo, walk-forward, deflated Sharpe / multiple-testing awareness), and portfolio simulation that respects liquidity and capacity. Would you trust a temporal transformer on the same features instead of LightGBM here—what would convince you either way on noisy, non-stationary market data?
+
+Answer:
+
+
+-----
+
+## 2026-10-11
+
+Category: ML Systems
+Question:
+A real-time ranking service consumes features from both a batch feature store (daily aggregates) and a streaming layer (Kafka → Flink) for session-level signals. Models are trained on point-in-time correct offline tables, but production incidents show ranking quality drops every day at 00:05 UTC: streaming features briefly read as null, batch features for “today” are not yet published, and the serving path falls back to defaults that differ from training imputation. Separately, a new model version in shadow mode receives 5% of traffic but feature logs show 30% of shadow requests use an older schema version because two serving pods lag during rolling deploys. Design the feature platform and serving contract fixes: freshness SLAs, unified feature views, backfill vs. stream reconciliation, training-serving skew tests in CI, and safe rollout (schema registry, compatibility modes, automatic rollback triggers). How do you monitor and alert on feature staleness and schema drift without paging on every expected daily batch delay?
+
+Answer:
+
+
+-----
+
+## 2026-10-11
+
+Category: Python Coding
+Question:
+Given an array of meeting time intervals `intervals` where `intervals[i] = [start_i, end_i)` (half-open: start inclusive, end exclusive), return the **minimum number of conference rooms** required so that no two meetings in the same room overlap.
+
+Input:
+- First line: integer `n`, the number of meetings.
+- Next `n` lines: two integers `start_i` and `end_i` per line.
+
+Output:
+- A single integer: the minimum number of rooms required.
+
+Constraints:
+- `1 <= n <= 10^4`
+- `0 <= start_i < end_i <= 10^6`
+- Intervals are not necessarily sorted
+
+Examples:
+Example 1:
+Input:
+```
+3
+0 30
+5 10
+15 20
+```
+Output:
+```
+2
+```
+
+Example 2:
+Input:
+```
+4
+7 10
+2 4
+15 18
+9 12
+```
+Output:
+```
+2
+```
+
+Example 3:
+Input:
+```
+2
+1 5
+5 9
+```
+Output:
+```
+1
+```
+Explanation: `[1, 5)` and `[5, 9)` do not overlap because the first ends when the second starts.
+
+Answer:
+
+
+-----
+
+
+
 
