@@ -93,6 +93,105 @@ result = graph.invoke(initial_state)
 print(result["messages"][-1]["content"])
 ```
 
+ # Multi-agent orchestration
+
+Multi-agent orchestration in LangGraph is built on a StateGraph architecture where agents are represented as nodes, and the routing logic between them is defined by conditional edges. Unlike traditional linear frameworks, LangGraph treats multi-agent workflows as a cyclic graph, allowing agents to loop back, critique each other, and pass shared state seamlessly.
+Here is a breakdown of how multi-agent orchestration is structured and implemented in LangGraph.
+
+1. Architectural Patterns in LangGraph
+
+LangGraph natively supports three primary multi-agent communication topologies:
+
+A. Centralized (Orchestrator-Worker / Router)
+
+A central router node analyzes the user input and the current state, delegates a specific subtask to a specialist agent node, and waits for that agent to return its results to the state. The router then decides the next step.
+Show Code
+Download diagram SVG
+
+B. Decentralized (Choreography / Network)
+
+Agents transfer control directly to one another without a central coordinator. Agent A finishes its work and explicitly routes the state to Agent B based on predefined conditional edges.
+Show Code
+Download diagram SVG
+
+C. Supervisor Pattern
+
+A specialized "supervisor" agent node uses an LLM to dynamically determine which agent to call next based on the ongoing conversation history. When a worker agent finishes, control returns to the supervisor until the supervisor decides the task is complete.
+
+2. Core Technical Components
+
+To build an orchestrated multi-agent system in LangGraph, you configure three primary elements:
+• The Shared State: A Python dictionary or Pydantic model passed between all nodes. In multi-agent systems, this state typically contains a messages key using Annotated[list, add_messages] so that agent replies append to a global conversation history.
+• Nodes (The Agents): Each agent is wrapped in a standard Python function that takes the current State as input, runs an LLM call or tool execution, and returns an updated chunk of the State.
+• Conditional Edges: Logic functions (routing_functions) that inspect the last message or state values and return a string matching the next node's name (e.g., if a tool needs to be called, route to tools; if formatting is wrong, route back to critic).
+
+3. Conceptual Code Blueprint
+
+Below is the foundational structure for orchestrating a two-agent system (a Researcher and a Writer) with a Supervisor in LangGraph:
+python
+from typing import Literal
+from typing_extensions import TypedDict
+from langgraph.graph import StateGraph, START, END
+from langchain_core.messages import BaseMessage
+
+# 1. Define the shared state
+class AgentState(TypedDict):
+    messages: list[BaseMessage]
+    next_agent: str
+
+# 2. Define individual agent nodes
+def researcher_node(state: AgentState):
+    # LLM logic for research...
+    return {"messages": [("assistant", "Research complete: found 3 facts.")]}
+
+def writer_node(state: AgentState):
+    # LLM logic for writing...
+    return {"messages": [("assistant", "Draft complete based on facts.")]}
+
+def supervisor_node(state: AgentState):
+    # LLM decides who goes next or if the objective is met
+    # e.g., updates state["next_agent"] = "Writer" or "FINISH"
+    return {"next_agent": "Writer"} 
+
+# 3. Define the routing logic
+def route_next(state: AgentState) -> Literal["Researcher", "Writer", "__end__"]:
+    if state["next_agent"] == "FINISH":
+        return END
+    return state["next_agent"]
+
+# 4. Build the Graph
+workflow = StateGraph(AgentState)
+
+# Add nodes
+workflow.add_node("Supervisor", supervisor_node)
+workflow.add_node("Researcher", researcher_node)
+workflow.add_node("Writer", writer_node)
+
+# Add structural edges
+workflow.add_edge(START, "Supervisor")
+workflow.add_edge("Researcher", "Supervisor")
+workflow.add_edge("Writer", "Supervisor")
+
+# Add conditional routing edge from supervisor
+workflow.add_conditional_edges(
+    "Supervisor",
+    route_next,
+    {
+        "Researcher": "Researcher",
+        "Writer": "Writer",
+        "__end__": END
+    }
+)
+
+# Compile graph
+app = workflow.compile()
+Use code with caution.
+
+4. Key Multi-Agent Capabilities in LangGraph
+
+• State Isolation (Subgraphs): You can give individual agents their own private internal states and graphs, exposing only a clean, top-level API to the primary orchestrator graph.
+• Human-in-the-Loop Interrupts: You can force the graph to pause before transitioning from a specific agent node (e.g., checking an autonomous coding agent's draft before deploying it).
+• Time-Travel & Resiliency: Because LangGraph records state checkpointers at every edge transition, you can replay, fork, or debug multi-agent loops that deviate or fail halfway through execution.
 
 
 CODING ROUND PREPARATION:
