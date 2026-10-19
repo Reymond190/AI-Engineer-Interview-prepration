@@ -1249,7 +1249,95 @@ To get perfect accuracy, the unified list (usually just the top 20–50 results)
 
 
 
+# Lesson 2: Build better MCP tools with validation
 
+Now we'll improve your employee directory server. In real enterprise projects, an MCP tool must do more than return data: it needs to validate inputs, handle errors, and expose clear instructions to the AI.
+
+We'll use the official Python SDK's current v2 style. Its type hints and validation constraints help define the tool's input schema automatically.&#x20;
+
+[image](https://www.google.com/s2/favicons?domain=https://py.sdk.modelcontextprotocol.io\&sz=32)
+
+MCP Python SDK
+
++1
+
+
+
+## 1. Add input validation
+
+Imagine an AI assistant calls your employee tool with an empty ID, an invalid ID format, or an ID that doesn't exist.
+
+Your server should handle those cases properly.
+
+Replace your `server.py` with this complete example:
+
+```
+    },    "E102": {        "name": "Rahul",        "department": "IT",        "role": "Software Engineer",    },}@mcp.tool()def get_employee(    employee_id: Annotated[        str,        Field(            description="Employee ID, for example E101",            pattern=r"^E[0-9]{3}$",        ),    ],) -> dict:    """Get an employee's details using their employee ID."""    employee = EMPLOYEES.get(employee_id)    if employee is None:        return {"error": "Employee not found"}    return employee@mcp.tool()def list_employees(    department: str = "all",) -> list[dict]:    """List employees, optionally filtered by department."""    if department.lower() == "all":        return list(EMPLOYEES.values())    return [        employee        for employee in EMPLOYEES.values()        if employee["department"].lower() == department.lower()    ]if __name__ == "__main__":    mcp.run()
+```
+
+Run it with:
+
+```
+mcp dev server.py
+```
+
+If your environment is managed with `uv`, you can use `uv run mcp dev server.py` instead. The Inspector opens an interface for trying both tools.&#x20;
+
+[image](https://www.google.com/s2/favicons?domain=https://py.sdk.modelcontextprotocol.io\&sz=32)
+
+MCP Python SDK
+
++1
+
+
+
+## 2. What did you just learn?
+
+`Annotated` and `Field`
+
+These let you describe and constrain an input. Here, the employee ID must match a format such as `E101`.
+
+Multiple tools on one server
+
+Each `@mcp.tool()` registers a separate tool. Our server now offers both `get_employee` and `list_employees`.
+
+Filtering data
+
+`list_employees("HR")` returns employees in HR. The default `"all"` returns every employee in our example dataset.
+
+Validation versus business errors
+
+A malformed ID is rejected by input validation. A well-formed ID such as `E999` can pass validation but still fail to find a matching employee.
+
+## 3. Practice in the MCP Inspector
+
+Try these inputs and predict the results before running them.
+
+| Tool             | Input  | Expected result        |
+| ---------------- | ------ | ---------------------- |
+| `get_employee`   | `E101` | Anita's details        |
+| `get_employee`   | `ABC`  | Input validation error |
+| `get_employee`   | `E999` | Employee not found     |
+| `list_employees` | `HR`   | Anita                  |
+| `list_employees` | `all`  | Both employees         |
+
+One important production lesson: returning `{"error": "Employee not found"}` is a valid data response, but it is not the same as raising a tool error. Later, we'll learn when to use each approach.
+
+## 4. Your turn
+
+Question: Why do we add validation to an MCP tool?
+
+A. To make the AI model more intelligent
+
+B. To ensure tool inputs follow the expected format and constraints
+
+C. To replace authentication and authorization
+
+Check answer
+
+## What's next?
+
+Our next lesson is Lesson 3: Connect your MCP server to a real API. You'll learn how to use `async def`, make HTTP requests, handle API failures, and return structured results — the foundation for connecting MCP to Microsoft Graph, HR platforms, and procurement systems.
 
 
 
