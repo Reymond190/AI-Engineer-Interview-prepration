@@ -1323,24 +1323,19 @@ Try these inputs and predict the results before running them.
 
 One important production lesson: returning `{"error": "Employee not found"}` is a valid data response, but it is not the same as raising a tool error. Later, we'll learn when to use each approach.
 
-## 4. Your turn
-
-Question: Why do we add validation to an MCP tool?
-
-A. To make the AI model more intelligent
-
-B. To ensure tool inputs follow the expected format and constraints
-
-C. To replace authentication and authorization
-
-Check answer
-
-## What's next?
-
-Our next lesson is Lesson 3: Connect your MCP server to a real API. You'll learn how to use `async def`, make HTTP requests, handle API failures, and return structured results — the foundation for connecting MCP to Microsoft Graph, HR platforms, and procurement systems.
+# AI SECURITY
 
 
+**TOOLS**-
 
+**PyRIT**: PyRIT simulates adversarial interactions with generative AI systems to evaluate their security, safety, and resilience. It supports testing for prompt injection, jailbreaks, harmful content generation, information disclosure, and failures involving multi-turn conversations. Unlike traditional vulnerability scanners, PyRIT focuses on how AI systems behave when confronted with deliberately challenging or manipulative inputs.
+**Garak**: Garak works by sending carefully designed test prompts—called probes—to an LLM and analyzing the responses with detectors. This modular architecture allows users to evaluate models against many classes of risks, including:
+- Prompt injection and jailbreaks
+- Information disclosure
+- Hallucination-related behaviors
+- Toxic or harmful outputs
+- Bias and safety failures
+- Model-specific vulnerabilities
 
 
 
