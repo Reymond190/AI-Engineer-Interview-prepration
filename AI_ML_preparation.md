@@ -98,6 +98,8 @@ print(result["messages"][-1]["content"])
 Multi-agent orchestration in LangGraph is built on a StateGraph architecture where agents are represented as nodes, and the routing logic between them is defined by conditional edges. Unlike traditional linear frameworks, LangGraph treats multi-agent workflows as a cyclic graph, allowing agents to loop back, critique each other, and pass shared state seamlessly.
 Here is a breakdown of how multi-agent orchestration is structured and implemented in LangGraph.
 
+
+
 1. Architectural Patterns in LangGraph
 
 LangGraph natively supports three primary multi-agent communication topologies:
@@ -105,14 +107,30 @@ LangGraph natively supports three primary multi-agent communication topologies:
 A. Centralized (Orchestrator-Worker / Router)
 
 A central router node analyzes the user input and the current state, delegates a specific subtask to a specialist agent node, and waits for that agent to return its results to the state. The router then decides the next step.
-Show Code
-Download diagram SVG
+```
+       [ User Input ]
+             │
+             ▼
+     ┌───────────────┐
+  ┌─►│ Router / Boss │◄─┐
+  │  └───────┬───────┘  │
+  │          │          │
+  │          ▼          │
+┌─┴─────┐ ┌──┴────┐ ┌──┴────┐
+│Coder  │ │Analyst│ │Writer │
+│Agent  │ │Agent  │ │Agent  │
+└───────┘ └───────┘ └───────┘
+
+```
 
 B. Decentralized (Choreography / Network)
 
 Agents transfer control directly to one another without a central coordinator. Agent A finishes its work and explicitly routes the state to Agent B based on predefined conditional edges.
-Show Code
-Download diagram SVG
+```
+[Agent A] ───(conditional edge)───► [Agent B] ───► [Agent C]
+   ▲                                                   │
+   └───────────────────(loop back)─────────────────────┘
+```
 
 C. Supervisor Pattern
 
