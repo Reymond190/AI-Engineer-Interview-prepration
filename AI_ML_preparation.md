@@ -128,7 +128,7 @@ To build an orchestrated multi-agent system in LangGraph, you configure three pr
 3. Conceptual Code Blueprint
 
 Below is the foundational structure for orchestrating a two-agent system (a Researcher and a Writer) with a Supervisor in LangGraph:
-python
+```
 from typing import Literal
 from typing_extensions import TypedDict
 from langgraph.graph import StateGraph, START, END
@@ -186,6 +186,7 @@ workflow.add_conditional_edges(
 # Compile graph
 app = workflow.compile()
 Use code with caution.
+```
 
 4. Key Multi-Agent Capabilities in LangGraph
 
