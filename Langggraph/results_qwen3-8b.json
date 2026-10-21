@@ -1,0 +1,378 @@
+{
+  "model": "Qwen/Qwen3-8B",
+  "runs": [
+    {
+      "lesson": "01_state_graph_basics",
+      "exit": 0,
+      "seconds": 6.1,
+      "checks": {
+        "produces a summary": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "02_routing_conditional_edges",
+      "exit": 0,
+      "seconds": 5.2,
+      "checks": {
+        "billing routed": true,
+        "technical routed": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "03_tool_calling_react",
+      "exit": 0,
+      "seconds": 6.8,
+      "checks": {
+        "gadget value 699.65": true,
+        "3 parallel lookups": true,
+        "looks up unknown product": true,
+        "create_agent widget value 510": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "03b_tool_calling_without_native_support",
+      "exit": 0,
+      "seconds": 4.6,
+      "checks": {
+        "emulated tools: 87.8F": true,
+        "prompt-JSON parsed": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "04_structured_output",
+      "exit": 0,
+      "seconds": 21.1,
+      "checks": {
+        "invoice total fixed to 644": true,
+        "bat & ball = 5": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "05_supervisor_multi_agent",
+      "exit": 0,
+      "seconds": 26.4,
+      "checks": {
+        "researcher used": true,
+        "analyst used": true,
+        "1,440 in final": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "06_handoffs_swarm",
+      "exit": 0,
+      "seconds": 5.3,
+      "checks": {
+        "flight moved": true,
+        "hotel 5 nights": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "07_hierarchical_subgraphs",
+      "exit": 0,
+      "seconds": 8.7,
+      "checks": {
+        "article written": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "08_parallel_map_reduce_send",
+      "exit": 0,
+      "seconds": 9.9,
+      "checks": {
+        "parallel speed-up": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "09_persistence_time_travel",
+      "exit": 0,
+      "seconds": 7.4,
+      "checks": {
+        "thread memory (Rust)": true,
+        "fork applied": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "10_human_in_the_loop",
+      "exit": 0,
+      "seconds": 8.3,
+      "checks": {
+        "approved refund": true,
+        "edited refund": true,
+        "rejection fed back": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "11_memory_short_and_long_term",
+      "exit": 0,
+      "seconds": 15.3,
+      "checks": {
+        "summary keeps April": true,
+        "long-term recall Python": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "12_streaming",
+      "exit": 0,
+      "seconds": 18.2,
+      "checks": {
+        "custom events streamed": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "13_reflection_evaluator_optimizer",
+      "exit": 0,
+      "seconds": 246.4,
+      "checks": {
+        "all tests pass": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "14_plan_and_execute",
+      "exit": 0,
+      "seconds": 23.7,
+      "checks": {
+        "correct total 7068.6": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "15_functional_api",
+      "exit": 0,
+      "seconds": 8.6,
+      "checks": {
+        "published after resume": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "16_reliability_production",
+      "exit": 0,
+      "seconds": 14.6,
+      "checks": {
+        "cache hit": true,
+        "fallback model": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "17_agentic_rag",
+      "exit": 0,
+      "seconds": 8.8,
+      "checks": {
+        "routes: docs, docs, direct, docs": true,
+        "Canberra": true,
+        "abstains on unknown": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "18_debate_network",
+      "exit": 0,
+      "seconds": 16.2,
+      "checks": {
+        "judge verdict": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "19_mcp_tools",
+      "exit": 0,
+      "seconds": 8.6,
+      "checks": {
+        "assigned PLAT-102 to sam": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "20_deep_agent",
+      "exit": 0,
+      "seconds": 15.5,
+      "checks": {
+        "planned with todos": true,
+        "used sub-agents": true,
+        "report.md written": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "21_evaluation_testing",
+      "exit": 0,
+      "seconds": 17.3,
+      "checks": {
+        "judge accuracy 3/3": true,
+        "trajectories 3/3": true
+      },
+      "tail": ""
+    }
+  ],
+  "summary": {
+    "01_state_graph_basics": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 1,
+      "checks_total": 1,
+      "seconds": 6.1
+    },
+    "02_routing_conditional_edges": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 2,
+      "checks_total": 2,
+      "seconds": 5.2
+    },
+    "03_tool_calling_react": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 4,
+      "checks_total": 4,
+      "seconds": 6.8
+    },
+    "03b_tool_calling_without_native_support": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 2,
+      "checks_total": 2,
+      "seconds": 4.6
+    },
+    "04_structured_output": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 2,
+      "checks_total": 2,
+      "seconds": 21.1
+    },
+    "05_supervisor_multi_agent": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 3,
+      "checks_total": 3,
+      "seconds": 26.4
+    },
+    "06_handoffs_swarm": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 2,
+      "checks_total": 2,
+      "seconds": 5.3
+    },
+    "07_hierarchical_subgraphs": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 1,
+      "checks_total": 1,
+      "seconds": 8.7
+    },
+    "08_parallel_map_reduce_send": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 1,
+      "checks_total": 1,
+      "seconds": 9.9
+    },
+    "09_persistence_time_travel": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 2,
+      "checks_total": 2,
+      "seconds": 7.4
+    },
+    "10_human_in_the_loop": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 3,
+      "checks_total": 3,
+      "seconds": 8.3
+    },
+    "11_memory_short_and_long_term": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 2,
+      "checks_total": 2,
+      "seconds": 15.3
+    },
+    "12_streaming": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 1,
+      "checks_total": 1,
+      "seconds": 18.2
+    },
+    "13_reflection_evaluator_optimizer": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 1,
+      "checks_total": 1,
+      "seconds": 246.4
+    },
+    "14_plan_and_execute": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 1,
+      "checks_total": 1,
+      "seconds": 23.7
+    },
+    "15_functional_api": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 1,
+      "checks_total": 1,
+      "seconds": 8.6
+    },
+    "16_reliability_production": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 2,
+      "checks_total": 2,
+      "seconds": 14.6
+    },
+    "17_agentic_rag": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 3,
+      "checks_total": 3,
+      "seconds": 8.8
+    },
+    "18_debate_network": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 1,
+      "checks_total": 1,
+      "seconds": 16.2
+    },
+    "19_mcp_tools": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 1,
+      "checks_total": 1,
+      "seconds": 8.6
+    },
+    "20_deep_agent": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 3,
+      "checks_total": 3,
+      "seconds": 15.5
+    },
+    "21_evaluation_testing": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 2,
+      "checks_total": 2,
+      "seconds": 17.3
+    }
+  }
+}

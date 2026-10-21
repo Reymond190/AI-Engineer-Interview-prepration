@@ -1,0 +1,378 @@
+{
+  "model": "Qwen/Qwen3.5-9B",
+  "runs": [
+    {
+      "lesson": "01_state_graph_basics",
+      "exit": 0,
+      "seconds": 6.6,
+      "checks": {
+        "produces a summary": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "02_routing_conditional_edges",
+      "exit": 0,
+      "seconds": 8.1,
+      "checks": {
+        "billing routed": true,
+        "technical routed": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "03_tool_calling_react",
+      "exit": 0,
+      "seconds": 10.3,
+      "checks": {
+        "gadget value 699.65": true,
+        "3 parallel lookups": true,
+        "looks up unknown product": true,
+        "create_agent widget value 510": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "03b_tool_calling_without_native_support",
+      "exit": 0,
+      "seconds": 6.6,
+      "checks": {
+        "emulated tools: 87.8F": false,
+        "prompt-JSON parsed": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "04_structured_output",
+      "exit": 0,
+      "seconds": 25.7,
+      "checks": {
+        "invoice total fixed to 644": true,
+        "bat & ball = 5": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "05_supervisor_multi_agent",
+      "exit": 0,
+      "seconds": 70.3,
+      "checks": {
+        "researcher used": true,
+        "analyst used": false,
+        "1,440 in final": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "06_handoffs_swarm",
+      "exit": 0,
+      "seconds": 8.4,
+      "checks": {
+        "flight moved": true,
+        "hotel 5 nights": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "07_hierarchical_subgraphs",
+      "exit": 0,
+      "seconds": 10.3,
+      "checks": {
+        "article written": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "08_parallel_map_reduce_send",
+      "exit": 0,
+      "seconds": 10.6,
+      "checks": {
+        "parallel speed-up": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "09_persistence_time_travel",
+      "exit": 0,
+      "seconds": 10.0,
+      "checks": {
+        "thread memory (Rust)": true,
+        "fork applied": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "10_human_in_the_loop",
+      "exit": 0,
+      "seconds": 14.0,
+      "checks": {
+        "approved refund": true,
+        "edited refund": true,
+        "rejection fed back": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "11_memory_short_and_long_term",
+      "exit": 0,
+      "seconds": 20.4,
+      "checks": {
+        "summary keeps April": true,
+        "long-term recall Python": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "12_streaming",
+      "exit": 0,
+      "seconds": 20.7,
+      "checks": {
+        "custom events streamed": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "13_reflection_evaluator_optimizer",
+      "exit": 1,
+      "seconds": 153.4,
+      "checks": {
+        "all tests pass": false
+      },
+      "tail": "packages\\openai\\lib\\_parsing\\_completions.py\", line 110, in parse_chat_completion\n    raise LengthFinishReasonError(completion=chat_completion)\nopenai.LengthFinishReasonError: Could not parse response content as the length limit was reached - CompletionUsage(completion_tokens=1024, prompt_tokens=555, total_tokens=1579, completion_tokens_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=None, reasoning_tokens=0, rejected_prediction_tokens=None, text_tokens=None), prompt_tokens_details=None)\nDuring task with name 'review' and id '43c6c317-0162-750f-fd17-49c016a84e96'\n"
+    },
+    {
+      "lesson": "14_plan_and_execute",
+      "exit": 0,
+      "seconds": 55.2,
+      "checks": {
+        "correct total 7068.6": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "15_functional_api",
+      "exit": 0,
+      "seconds": 8.6,
+      "checks": {
+        "published after resume": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "16_reliability_production",
+      "exit": 0,
+      "seconds": 13.2,
+      "checks": {
+        "cache hit": true,
+        "fallback model": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "17_agentic_rag",
+      "exit": 0,
+      "seconds": 9.4,
+      "checks": {
+        "routes: docs, docs, direct, docs": true,
+        "Canberra": true,
+        "abstains on unknown": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "18_debate_network",
+      "exit": 0,
+      "seconds": 53.9,
+      "checks": {
+        "judge verdict": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "19_mcp_tools",
+      "exit": 0,
+      "seconds": 8.6,
+      "checks": {
+        "assigned PLAT-102 to sam": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "20_deep_agent",
+      "exit": 0,
+      "seconds": 39.0,
+      "checks": {
+        "planned with todos": true,
+        "used sub-agents": true,
+        "report.md written": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "21_evaluation_testing",
+      "exit": 0,
+      "seconds": 60.2,
+      "checks": {
+        "judge accuracy 3/3": true,
+        "trajectories 3/3": true
+      },
+      "tail": ""
+    }
+  ],
+  "summary": {
+    "01_state_graph_basics": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 1,
+      "checks_total": 1,
+      "seconds": 6.6
+    },
+    "02_routing_conditional_edges": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 2,
+      "checks_total": 2,
+      "seconds": 8.1
+    },
+    "03_tool_calling_react": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 4,
+      "checks_total": 4,
+      "seconds": 10.3
+    },
+    "03b_tool_calling_without_native_support": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 1,
+      "checks_total": 2,
+      "seconds": 6.6
+    },
+    "04_structured_output": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 2,
+      "checks_total": 2,
+      "seconds": 25.7
+    },
+    "05_supervisor_multi_agent": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 2,
+      "checks_total": 3,
+      "seconds": 70.3
+    },
+    "06_handoffs_swarm": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 2,
+      "checks_total": 2,
+      "seconds": 8.4
+    },
+    "07_hierarchical_subgraphs": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 1,
+      "checks_total": 1,
+      "seconds": 10.3
+    },
+    "08_parallel_map_reduce_send": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 1,
+      "checks_total": 1,
+      "seconds": 10.6
+    },
+    "09_persistence_time_travel": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 2,
+      "checks_total": 2,
+      "seconds": 10.0
+    },
+    "10_human_in_the_loop": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 3,
+      "checks_total": 3,
+      "seconds": 14.0
+    },
+    "11_memory_short_and_long_term": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 2,
+      "checks_total": 2,
+      "seconds": 20.4
+    },
+    "12_streaming": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 1,
+      "checks_total": 1,
+      "seconds": 20.7
+    },
+    "13_reflection_evaluator_optimizer": {
+      "runs": 1,
+      "ok": 0,
+      "checks_passed": 0,
+      "checks_total": 1,
+      "seconds": 153.4
+    },
+    "14_plan_and_execute": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 1,
+      "checks_total": 1,
+      "seconds": 55.2
+    },
+    "15_functional_api": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 1,
+      "checks_total": 1,
+      "seconds": 8.6
+    },
+    "16_reliability_production": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 2,
+      "checks_total": 2,
+      "seconds": 13.2
+    },
+    "17_agentic_rag": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 3,
+      "checks_total": 3,
+      "seconds": 9.4
+    },
+    "18_debate_network": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 1,
+      "checks_total": 1,
+      "seconds": 53.9
+    },
+    "19_mcp_tools": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 1,
+      "checks_total": 1,
+      "seconds": 8.6
+    },
+    "20_deep_agent": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 3,
+      "checks_total": 3,
+      "seconds": 39.0
+    },
+    "21_evaluation_testing": {
+      "runs": 1,
+      "ok": 1,
+      "checks_passed": 2,
+      "checks_total": 2,
+      "seconds": 60.2
+    }
+  }
+}

@@ -1,0 +1,198 @@
+{
+  "model": "Qwen/Qwen3-8B",
+  "runs": [
+    {
+      "lesson": "05_supervisor_multi_agent",
+      "exit": 0,
+      "seconds": 24.1,
+      "checks": {
+        "researcher used": true,
+        "analyst used": true,
+        "1,440 in final": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "05_supervisor_multi_agent",
+      "exit": 0,
+      "seconds": 24.4,
+      "checks": {
+        "researcher used": true,
+        "analyst used": true,
+        "1,440 in final": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "05_supervisor_multi_agent",
+      "exit": 0,
+      "seconds": 29.5,
+      "checks": {
+        "researcher used": true,
+        "analyst used": true,
+        "1,440 in final": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "06_handoffs_swarm",
+      "exit": 0,
+      "seconds": 7.7,
+      "checks": {
+        "flight moved": true,
+        "hotel 5 nights": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "06_handoffs_swarm",
+      "exit": 0,
+      "seconds": 7.2,
+      "checks": {
+        "flight moved": true,
+        "hotel 5 nights": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "06_handoffs_swarm",
+      "exit": 0,
+      "seconds": 7.4,
+      "checks": {
+        "flight moved": true,
+        "hotel 5 nights": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "14_plan_and_execute",
+      "exit": 0,
+      "seconds": 25.3,
+      "checks": {
+        "correct total 7068.6": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "14_plan_and_execute",
+      "exit": 0,
+      "seconds": 21.0,
+      "checks": {
+        "correct total 7068.6": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "14_plan_and_execute",
+      "exit": 0,
+      "seconds": 20.4,
+      "checks": {
+        "correct total 7068.6": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "17_agentic_rag",
+      "exit": 0,
+      "seconds": 9.4,
+      "checks": {
+        "routes: docs, docs, direct, docs": true,
+        "Canberra": true,
+        "abstains on unknown": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "17_agentic_rag",
+      "exit": 0,
+      "seconds": 8.5,
+      "checks": {
+        "routes: docs, docs, direct, docs": true,
+        "Canberra": true,
+        "abstains on unknown": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "17_agentic_rag",
+      "exit": 0,
+      "seconds": 8.3,
+      "checks": {
+        "routes: docs, docs, direct, docs": true,
+        "Canberra": true,
+        "abstains on unknown": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "20_deep_agent",
+      "exit": 0,
+      "seconds": 17.1,
+      "checks": {
+        "planned with todos": true,
+        "used sub-agents": true,
+        "report.md written": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "20_deep_agent",
+      "exit": 0,
+      "seconds": 20.4,
+      "checks": {
+        "planned with todos": true,
+        "used sub-agents": true,
+        "report.md written": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "20_deep_agent",
+      "exit": 0,
+      "seconds": 16.1,
+      "checks": {
+        "planned with todos": true,
+        "used sub-agents": true,
+        "report.md written": true
+      },
+      "tail": ""
+    }
+  ],
+  "summary": {
+    "05_supervisor_multi_agent": {
+      "runs": 3,
+      "ok": 3,
+      "checks_passed": 9,
+      "checks_total": 9,
+      "seconds": 78.0
+    },
+    "06_handoffs_swarm": {
+      "runs": 3,
+      "ok": 3,
+      "checks_passed": 6,
+      "checks_total": 6,
+      "seconds": 22.3
+    },
+    "14_plan_and_execute": {
+      "runs": 3,
+      "ok": 3,
+      "checks_passed": 3,
+      "checks_total": 3,
+      "seconds": 66.69999999999999
+    },
+    "17_agentic_rag": {
+      "runs": 3,
+      "ok": 3,
+      "checks_passed": 9,
+      "checks_total": 9,
+      "seconds": 26.2
+    },
+    "20_deep_agent": {
+      "runs": 3,
+      "ok": 3,
+      "checks_passed": 9,
+      "checks_total": 9,
+      "seconds": 53.6
+    }
+  }
+}

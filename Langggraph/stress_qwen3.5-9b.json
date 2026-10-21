@@ -1,0 +1,25 @@
+{
+  "model": "Qwen/Qwen3.5-9B",
+  "results": {
+    "supervisor picks a worker first (fast, no guardrail)": {
+      "score": 1.0,
+      "seconds": 0.8
+    },
+    "RAG router zero-shot accuracy": {
+      "score": 1.0,
+      "seconds": 0.7
+    },
+    "one-shot codegen tests passed (fast)": {
+      "score": 0.68,
+      "seconds": 5.2
+    },
+    "single ReAct agent solves 7-step costing task": {
+      "score": 1.0,
+      "seconds": 2.2
+    },
+    "judge catches a wrong number": {
+      "score": 1.0,
+      "seconds": 1.6
+    }
+  }
+}

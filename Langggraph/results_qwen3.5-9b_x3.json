@@ -1,0 +1,198 @@
+{
+  "model": "Qwen/Qwen3.5-9B",
+  "runs": [
+    {
+      "lesson": "05_supervisor_multi_agent",
+      "exit": 0,
+      "seconds": 166.4,
+      "checks": {
+        "researcher used": true,
+        "analyst used": true,
+        "1,440 in final": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "05_supervisor_multi_agent",
+      "exit": 0,
+      "seconds": 121.1,
+      "checks": {
+        "researcher used": true,
+        "analyst used": true,
+        "1,440 in final": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "05_supervisor_multi_agent",
+      "exit": 0,
+      "seconds": 77.0,
+      "checks": {
+        "researcher used": true,
+        "analyst used": false,
+        "1,440 in final": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "06_handoffs_swarm",
+      "exit": 0,
+      "seconds": 8.5,
+      "checks": {
+        "flight moved": true,
+        "hotel 5 nights": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "06_handoffs_swarm",
+      "exit": 0,
+      "seconds": 7.8,
+      "checks": {
+        "flight moved": true,
+        "hotel 5 nights": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "06_handoffs_swarm",
+      "exit": 0,
+      "seconds": 7.8,
+      "checks": {
+        "flight moved": true,
+        "hotel 5 nights": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "14_plan_and_execute",
+      "exit": 1,
+      "seconds": 50.2,
+      "checks": {
+        "correct total 7068.6": false
+      },
+      "tail": " input, config, **kwargs)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Joseph Raymond\\Documents\\projects\\model_run\\.venv\\Lib\\site-packages\\langgraph\\_internal\\_runnable.py\", line 447, in invoke\n    ret = self.func(*args, **kwargs)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Joseph Raymond\\Documents\\projects\\model_run\\langgraph_course\\14_plan_and_execute.py\", line 96, in execute_step\n    step = state[\"plan\"][0]\n           ~~~~~~~~~~~~~^^^\nIndexError: list index out of range\nDuring task with name 'execute' and id '0ff0bab0-c117-2256-516a-691dce8fa762'\n"
+    },
+    {
+      "lesson": "14_plan_and_execute",
+      "exit": 0,
+      "seconds": 39.6,
+      "checks": {
+        "correct total 7068.6": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "14_plan_and_execute",
+      "exit": 0,
+      "seconds": 39.8,
+      "checks": {
+        "correct total 7068.6": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "17_agentic_rag",
+      "exit": 0,
+      "seconds": 12.3,
+      "checks": {
+        "routes: docs, docs, direct, docs": true,
+        "Canberra": true,
+        "abstains on unknown": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "17_agentic_rag",
+      "exit": 0,
+      "seconds": 11.0,
+      "checks": {
+        "routes: docs, docs, direct, docs": true,
+        "Canberra": true,
+        "abstains on unknown": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "17_agentic_rag",
+      "exit": 0,
+      "seconds": 11.3,
+      "checks": {
+        "routes: docs, docs, direct, docs": true,
+        "Canberra": true,
+        "abstains on unknown": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "20_deep_agent",
+      "exit": 0,
+      "seconds": 46.1,
+      "checks": {
+        "planned with todos": true,
+        "used sub-agents": true,
+        "report.md written": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "20_deep_agent",
+      "exit": 0,
+      "seconds": 25.5,
+      "checks": {
+        "planned with todos": true,
+        "used sub-agents": true,
+        "report.md written": true
+      },
+      "tail": ""
+    },
+    {
+      "lesson": "20_deep_agent",
+      "exit": 0,
+      "seconds": 30.9,
+      "checks": {
+        "planned with todos": true,
+        "used sub-agents": true,
+        "report.md written": true
+      },
+      "tail": ""
+    }
+  ],
+  "summary": {
+    "05_supervisor_multi_agent": {
+      "runs": 3,
+      "ok": 3,
+      "checks_passed": 8,
+      "checks_total": 9,
+      "seconds": 364.5
+    },
+    "06_handoffs_swarm": {
+      "runs": 3,
+      "ok": 3,
+      "checks_passed": 6,
+      "checks_total": 6,
+      "seconds": 24.1
+    },
+    "14_plan_and_execute": {
+      "runs": 3,
+      "ok": 2,
+      "checks_passed": 2,
+      "checks_total": 3,
+      "seconds": 129.60000000000002
+    },
+    "17_agentic_rag": {
+      "runs": 3,
+      "ok": 3,
+      "checks_passed": 9,
+      "checks_total": 9,
+      "seconds": 34.6
+    },
+    "20_deep_agent": {
+      "runs": 3,
+      "ok": 3,
+      "checks_passed": 9,
+      "checks_total": 9,
+      "seconds": 102.5
+    }
+  }
+}
