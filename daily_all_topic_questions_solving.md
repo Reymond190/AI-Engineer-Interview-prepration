@@ -749,7 +749,38 @@ Question:
 A real-time ranking service consumes features from both a batch feature store (daily aggregates) and a streaming layer (Kafka → Flink) for session-level signals. Models are trained on point-in-time correct offline tables, but production incidents show ranking quality drops every day at 00:05 UTC: streaming features briefly read as null, batch features for “today” are not yet published, and the serving path falls back to defaults that differ from training imputation. Separately, a new model version in shadow mode receives 5% of traffic but feature logs show 30% of shadow requests use an older schema version because two serving pods lag during rolling deploys. Design the feature platform and serving contract fixes: freshness SLAs, unified feature views, backfill vs. stream reconciliation, training-serving skew tests in CI, and safe rollout (schema registry, compatibility modes, automatic rollback triggers). How do you monitor and alert on feature staleness and schema drift without paging on every expected daily batch delay?
 
 Answer:
+Here is the design for the feature platform and serving contract fixes to resolve the 00:05 UTC degradation and schema drift issues:
 
+---
+
+### **1. Freshness SLAs & Daily Boundary Mitigations (00:05 UTC Issue)**
+
+* **Fix:** Replace strict calendar-day boundaries with **rolling 24-hour window aggregates** in both streaming and batch layers so metrics never drop to zero at midnight.
+* **Freshness SLA:** Define strict SLAs per feature tier (e.g., streaming features $< 5$ seconds; batch features $< 24$ hours with an explicit grace period from 00:00 to 00:30 UTC).
+
+### **2. Unified Feature Views & Imputation Consistency**
+
+* **Fix:** Use a centralized feature store framework (e.g., Feast, Tecton) with declarative feature definitions.
+* **Enforcement:** Ensure that the exact same imputation functions (e.g., median, zero-fill, or learned embeddings) are compiled into both the offline training pipeline and the online serving feature retriever to eliminate training-serving skew.
+
+### **3. Backfill vs. Stream Reconciliation**
+
+* **Fix:** Implement a nightly reconciliation pipeline that compares Flink state store aggregations against batch-computed ground truth tables. Discrepancies exceeding a threshold trigger automated state resets or correct streaming sink adjustments.
+
+### **4. Training-Serving Skew Tests in CI**
+
+* **Fix:** Integrate automated validation libraries (e.g., Great Expectations, Deepchecks) into the CI/CD pipeline.
+* **Execution:** Test sample feature payloads against training distribution schemas, catching schema type mismatches, missing imputation logic, and range violations before code hits production.
+
+### **5. Safe Rollout (Schema Registry, Compatibility Modes, Auto-Rollback)**
+
+* **Schema Registry:** Enforce a centralized schema registry (e.g., Confluent Schema Registry or Protobuf definitions) requiring **FULL compatibility** (both backward and forward) for all feature and model updates.
+* **Rolling Deploys & Shadow Consistency:** Use canary traffic splitting combined with readiness probes that reject requests from pods running outdated schema versions during rolling updates. Configure automated rollback triggers if error rates or schema mismatch exceptions exceed 0.1%.
+
+### **6. Monitoring & Alerting Without Daily Pager Fatigue**
+
+* **Staleness Alerts:** Exclude the expected batch transition window (00:00–00:30 UTC) using time-windowed alert suppression or dynamic anomaly detection.
+* **Drift & Schema Alerts:** Alert on *unexpected* streaming lag (e.g., Flink consumer lag $> 5$ minutes) or schema validation failures (unrecognized fields/types) rather than routine batch schedule updates.
 
 -----
 
