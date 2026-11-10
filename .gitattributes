@@ -1,0 +1,2 @@
+# Keep shell scripts as LF so WSL bash can run them.
+*.sh text eol=lf

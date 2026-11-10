@@ -1,0 +1,18 @@
+Warehouse Inventory – Batch 2026-09
+===================================
+Item            | Qty  | Unit Price ($)
+----------------|------|---------------
+Widget A        |  150 |  12.50
+Widget B        |   80 |  22.00
+Gadget X        |   45 |  55.75
+Gadget Y        |   30 |  89.00
+Component Z     | 1200 |   1.05
+Connector Pack  |  500 |   2.30
+Mounting Plate  |   60 |  34.00
+Controller Unit |   12 | 275.00
+Sensor Module   |   25 | 110.00
+Cable Set       |  300 |   5.50
+
+Total line items: 10
+Last updated: 2026-09-20
+Warehouse: Building 4, Shelf Row C

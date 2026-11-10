@@ -19,15 +19,16 @@ prefers. Modern post-training is SFT, then preference tuning and/or RL, often
 over several rounds.
 
 **When do you fine-tune instead of prompting or using RAG?**
+
 - Prompting first: it's cheapest, and the instructions are visible and easy to change.
 - RAG when the problem is *knowledge* (facts that change, private documents,
-  citations needed). Fine-tuning is a poor way to add facts: models hallucinate
-  around facts they learned this way, and the facts go stale.
+citations needed). Fine-tuning is a poor way to add facts: models hallucinate
+around facts they learned this way, and the facts go stale.
 - Fine-tune when the problem is *behaviour*: a strict output format, house
-  rules a prompt can't fully specify (05: base 0.15, LoRA 0.68 on held-out
-  phrasings, **measured here**), a domain tone, a tool schema (11: exact tool
+rules a prompt can't fully specify (05: base 0.15, LoRA 0.68 on held-out
+phrasings, **measured here**), a domain tone, a tool schema (11: exact tool
 calls 0.28 → 1.00 after 40 steps), or cost
-  and latency (a fine-tuned 0.6B instead of a prompted 9B, as in 12).
+and latency (a fine-tuned 0.6B instead of a prompted 9B, as in 12).
 - They combine: a fine-tuned model can be better at *using* retrieved context.
 
 **Full fine-tuning vs PEFT?**
@@ -55,6 +56,7 @@ Weights + gradients + optimizer states + activations + temporary buffers.
 Mixed-precision AdamW needs ~16 B/param: fp32 master weights (4) + grads (4) +
 Adam m and v (4 + 4). **Measured here (00):** 0.6B full FT after `opt.step()`
 was 9.24 GB against an estimate of 8.88 GB (ratio 1.04).
+
 - 9B full FT ≈ 144 GB before activations. LoRA bf16 9B ≈ 18 GB. QLoRA 9B ≈ 5–6 GB.
 - Inference needs only weights + KV cache: 2 B/param in bf16, about 0.5 B/param in int4.
 
@@ -207,6 +209,7 @@ not), so a plain sum works. Aggressive dropping (DARE at 30% density) hurt the
 "weaker" adapter.
 
 **LoRA variants (15)?**
+
 - **DoRA:** a learned magnitude vector plus a LoRA-updated direction. Often +1–2 points; ~20–40% slower training; no cost after merge.
 - **PiSSA / OLoRA:** initialise from the principal singular vectors or a QR of W. Faster convergence; they modify the base weights.
 - **LoRA+:** a higher lr for B than for A (ratio ~16). Free speed-up.
@@ -288,6 +291,7 @@ Disable the adapter. Merge the SFT adapter first so that "adapter off" means
 the SFT model, not the base (09).
 
 **DPO variants?**
+
 - **IPO:** regularised, avoids overfitting deterministic preferences.
 - **KTO:** learns from unpaired good/bad labels.
 - **ORPO:** SFT plus an odds-ratio term in one stage, with no reference model.
@@ -323,14 +327,15 @@ rewards strict, keep format bonuses small, inspect samples, and add length
 controls.
 
 **What is wrong with original GRPO (18)?**
+
 - **Dr. GRPO:** per-sequence length normalisation creates a length bias (long
-  wrong answers are penalised less per token), and std scaling adds a
-  difficulty bias. Remove both.
+wrong answers are penalised less per token), and std scaling adds a
+difficulty bias. Remove both.
 - **DAPO:** token-level loss across the batch, clip-higher (ε_high 0.28, which
-  keeps entropy up), dynamic sampling (drop zero-variance groups), and
-  overlong masking/shaping.
+keeps entropy up), dynamic sampling (drop zero-variance groups), and
+overlong masking/shaping.
 - **GSPO:** sequence-level importance ratios and clipping. More stable,
-  especially for MoE.
+especially for MoE.
 - **CISPO:** clip the importance weight instead of dropping token gradients.
 
 TRL now defaults to the DAPO loss with β = 0 (no reference model).
@@ -351,14 +356,15 @@ generation.
 ## 7. Distillation and small models (12)
 
 **Logit KD vs sequence-level KD?**
+
 - **Logit (token) KD:** the student matches the teacher's full next-token
-  distribution: α·T²·KL(p_t^T ‖ p_s^T) + (1−α)·CE. It needs the same
-  vocabulary, and it transfers "dark knowledge" (which wrong answers are
-  close).
+distribution: α·T²·KL(p_t^T ‖ p_s^T) + (1−α)·CE. It needs the same
+vocabulary, and it transfers "dark knowledge" (which wrong answers are
+close).
 - **Sequence-level KD:** the teacher generates outputs and the student does
-  SFT on them. It works across tokenizers and with API-only teachers, and it
-  can label unlabeled inputs. This is how most "distilled" open models were
-  made, including DeepSeek-R1-Distill (SFT on R1 traces, no RL).
+SFT on them. It works across tokenizers and with API-only teachers, and it
+can label unlabeled inputs. This is how most "distilled" open models were
+made, including DeepSeek-R1-Distill (SFT on R1 traces, no RL).
 
 **On-policy distillation (GKD)?**
 The student generates and the teacher scores the student's own tokens. This
@@ -423,8 +429,10 @@ Each entry gives what it is, why it helps, when to use it, and the trade-off.
 | torch.compile (14) | failed under this torch + PEFT combination (reported, not crashed) |
 
 **What to reach for first on one 16 GB GPU** (in this order, based on these numbers):
+
 1. LoRA (QLoRA if the bf16 base doesn't fit).
 2. A fused cross-entropy (Liger, or your trainer's built-in fused head; check
+
    which is active).
 3. Packing for variable-length data, but only with a varlen attention kernel (FA2).
 4. Gradient checkpointing for long sequences, or if still OOM.
@@ -466,9 +474,12 @@ needs a cluster (~1.1 TB of states).
 ## 10. Evaluation and deployment (07, 13)
 
 **How do you evaluate a fine-tune?**
+
 1. Target task on a held-out, decontaminated test set with a deterministic
+
    grader where possible.
 2. Generalisation to shifted inputs (07: unseen product names; the test set
+
    uses unseen phrasings).
 3. Regressions: general benchmarks or a fixed regression suite, safety refusals.
 4. Report confidence intervals: n=200 exact match is roughly ±7% at 95%.
@@ -500,8 +511,8 @@ Fill in the numbers from your own `run_all.py --full` run:
 > small model got wrong (base Qwen3-0.6B: **0.15** exact match on held-out
 > phrasings).
 > **Approach:** label-first synthetic data, a held-out test set built from
-> *unseen phrasings*, and LoRA r=16 on all linear layers at lr 2e-4 with
-> completion-only loss and the exact serving chat template.
+> *unseen phrasings*, and LoRA r=16 on all linear layers at lr 2e-4 with       
+> completion-only loss and the exact serving chat template.  
 > **Result:** **0.68** after 60 steps (quick); compare with full FT and QLoRA-4B
 > (06), and confirm no regression on arithmetic or generic perplexity (07).
 > **Iterations:** priority on unseen phrasings was the hardest field, so I

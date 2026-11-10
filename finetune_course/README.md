@@ -1,10 +1,5 @@
 # LLM fine-tuning course (local, RTX 5080 16 GB)
 
-> Copied from the `model_run` lab, where this folder is `finetune_course/`. Paths below
-> use that layout: `setup/05_setup_finetune_env.sh` is `setup_finetune_env.sh` here.
-> `server/serve.sh` (vLLM, used by lessons 08 and 13) and `langgraph_course/common.py`
-> (used by lesson 08; see `../Langggraph/common.py`) live in the lab repo.
-
 Runnable scripts from basics to current efficient techniques, built on the
 HF stack (transformers + PEFT + TRL). Every script opens with an
 **"Interview topics"** docstring: read that first, run it, then change

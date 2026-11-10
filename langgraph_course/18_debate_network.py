@@ -34,7 +34,7 @@ from pydantic import BaseModel, Field
 
 from common import banner, get_llm, show, structured
 
-ROUNDS = 2
+ROUNDS = 10
 llm = get_llm(max_tokens=400)
 
 NO_FABRICATION = " Do not invent statistics, studies or pilot results; argue from reasoning and well-known facts."
@@ -110,6 +110,6 @@ graph = builder.compile()
 
 if __name__ == "__main__":
     banner("Debate")
-    out = graph.invoke({"proposal": "Replace our rule-based customer-support chatbot with a multi-agent LLM system this quarter."})
+    out = graph.invoke({"proposal": "The Decision to Use Atomic Weapons in 1945: Military Necessity vs. Geopolitical Signaling."})
     banner("Verdict")
     show("verdict", out["verdict"], width=1500)

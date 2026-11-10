@@ -1,0 +1,48 @@
+# Environment / secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+*.venv
+
+# Agent logs (can be large)
+logs/
+
+# Pytest cache
+.pytest_cache/
+.coverage
+
+# Jupyter
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# LangGraph course checkpoint DB (lesson 09)
+langgraph_course/*.sqlite*
+
+# agent_lab run outputs
+agent_lab/runs/
+
+# finetune_course outputs (adapters, merged models, logs)
+finetune_course/outputs/
+
+# Tool caches / editors
+.ruff_cache/
+.mypy_cache/
+.vscode/
+.idea/
+
+# Local scratch
+cmd_to_start.txt
