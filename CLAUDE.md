@@ -61,6 +61,17 @@ Wait for `Application startup complete`. All profiles use pre-quantized checkpoi
 python finetune_course/run_all.py [05 07] [--full] [--save f.json]     # WSL, env ft, vLLM stopped
 ```
 
+### `ml_course/` (classic ML + DL fundamentals)
+16 numbered lessons (00–15), the runnable companion to `ml_fundamentals.md`: 00–07 classic ML (numpy + scikit-learn: leakage/CV, linear/logistic, GD, bias-variance, trees/boosting, SVM/kNN, k-means/PCA, metrics), 08–15 DL in plain torch (autograd, training loop, init, normalisation, optimizers, CNN, RNN/LSTM, attention). Same style: "Interview topics" docstring, `INTERVIEW_GUIDE.md` with measured numbers, README lesson table. Env: WSL conda `ft` (scikit-learn/scipy added by `setup/05_setup_finetune_env.sh`); models are tiny, so vLLM can stay up, and everything runs on CPU too.
+
+- Algorithms are written from scratch and checked against sklearn/torch (parity lines like `max_diff=...`).
+- Lessons print `[tag] key=value` lines via `common.kv()`. `run_all.py` parses them into `{tag: {key: value}}`, and `CHECKS` holds predicates on **effects** (e.g. leaky CV > honest CV + 0.2), not exact numbers. When you change a lesson's printed results, update its predicates.
+- Every printed claim was checked against a run. Several first drafts were wrong (LN after a linear input layer erases input scale; ROC vs PR-AUC needs a fixed scorer; LSTM fails at length 30 in the quick budget), so re-measure before changing the explanatory text.
+
+```
+python ml_course/run_all.py [09 11] [--full] [--save f.json]     # WSL, env ft
+```
+
 ### `agent_lab/` (parallel sandboxed agents)
 LangGraph orchestrator: `plan → Send fan-out to N solvers → verify → decide (retry|report)`. See `agent_lab/README.md`.
 

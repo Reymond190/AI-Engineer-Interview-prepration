@@ -59,7 +59,7 @@ class Context:  # run-scoped config, injected via Runtime
 
 def prepare(state: State) -> dict:
     return {
-        "messages": [HumanMessage(f"Explain {state['topic']}")],
+        "messages": [HumanMessage(f"E    xplain {state['topic']}")],
         "steps": ["prepare"],
     }
 

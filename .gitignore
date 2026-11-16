@@ -38,6 +38,9 @@ agent_lab/runs/
 # finetune_course outputs (adapters, merged models, logs)
 finetune_course/outputs/
 
+# ml_course logs
+ml_course/outputs/
+
 # Tool caches / editors
 .ruff_cache/
 .mypy_cache/

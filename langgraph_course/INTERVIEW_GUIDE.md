@@ -204,3 +204,240 @@ Run them offline on datasets before every prompt or model change, and online on 
 8. When would you pick the Functional API over the Graph API?
 9. How do you stream partial results from a node deep inside a subgraph to a UI?
 10. How do you protect an MCP-connected agent against prompt injection from tool results?
+
+## 12. StateGraph practice examples
+
+The core rules are: define a state schema, have each node return a partial state
+update, use edges for fixed control flow, and use conditional edges for routing.
+Each example below is independent.
+
+### 12.1 Linear number graph
+
+```python
+from typing import TypedDict
+
+from langgraph.graph import END, START, StateGraph
+
+
+class NumberState(TypedDict):
+    number: int
+
+
+def multiply_by_3(state: NumberState) -> dict:
+    return {"number": state["number"] * 3}
+
+
+def subtract_2(state: NumberState) -> dict:
+    return {"number": state["number"] - 2}
+
+
+builder = StateGraph(NumberState)
+builder.add_node("multiply_by_3", multiply_by_3)
+builder.add_node("subtract_2", subtract_2)
+builder.add_edge(START, "multiply_by_3")
+builder.add_edge("multiply_by_3", "subtract_2")
+builder.add_edge("subtract_2", END)
+
+graph = builder.compile()
+assert graph.invoke({"number": 4})["number"] == 10
+```
+
+### 12.2 Text-processing pipeline
+
+```python
+class TextState(TypedDict):
+    text: str
+
+
+def lowercase(state: TextState) -> dict:
+    return {"text": state["text"].lower()}
+
+
+def trim_spaces(state: TextState) -> dict:
+    return {"text": state["text"].strip()}
+
+
+def add_exclamation(state: TextState) -> dict:
+    return {"text": state["text"] + "!"}
+
+
+builder = StateGraph(TextState)
+builder.add_node("lowercase", lowercase)
+builder.add_node("trim_spaces", trim_spaces)
+builder.add_node("add_exclamation", add_exclamation)
+builder.add_edge(START, "lowercase")
+builder.add_edge("lowercase", "trim_spaces")
+builder.add_edge("trim_spaces", "add_exclamation")
+builder.add_edge("add_exclamation", END)
+
+graph = builder.compile()
+assert graph.invoke({"text": "  HELLO WORLD  "})["text"] == "hello world!"
+```
+
+### 12.3 Even/odd conditional routing
+
+The routing function returns a path key, while destination nodes return state
+updates. The path map translates each key into a node name.
+
+```python
+class EvenOddState(TypedDict):
+    number: int
+    result: str
+
+
+def route_number(state: EvenOddState) -> str:
+    return "even" if state["number"] % 2 == 0 else "odd"
+
+
+def mark_even(state: EvenOddState) -> dict:
+    return {"result": "even"}
+
+
+def mark_odd(state: EvenOddState) -> dict:
+    return {"result": "odd"}
+
+
+builder = StateGraph(EvenOddState)
+builder.add_node("mark_even", mark_even)
+builder.add_node("mark_odd", mark_odd)
+builder.add_conditional_edges(
+    START,
+    route_number,
+    {"even": "mark_even", "odd": "mark_odd"},
+)
+builder.add_edge("mark_even", END)
+builder.add_edge("mark_odd", END)
+
+graph = builder.compile()
+assert graph.invoke({"number": 10, "result": ""})["result"] == "even"
+assert graph.invoke({"number": 7, "result": ""})["result"] == "odd"
+```
+
+### 12.4 Grade routing
+
+```python
+class GradeState(TypedDict):
+    score: int
+    grade: str
+
+
+def choose_grade(state: GradeState) -> str:
+    if state["score"] >= 80:
+        return "a"
+    if state["score"] >= 60:
+        return "b"
+    return "c"
+
+
+def assign_a(state: GradeState) -> dict:
+    return {"grade": "A"}
+
+
+def assign_b(state: GradeState) -> dict:
+    return {"grade": "B"}
+
+
+def assign_c(state: GradeState) -> dict:
+    return {"grade": "C"}
+
+
+builder = StateGraph(GradeState)
+builder.add_node("assign_a", assign_a)
+builder.add_node("assign_b", assign_b)
+builder.add_node("assign_c", assign_c)
+builder.add_conditional_edges(
+    START,
+    choose_grade,
+    {"a": "assign_a", "b": "assign_b", "c": "assign_c"},
+)
+builder.add_edge("assign_a", END)
+builder.add_edge("assign_b", END)
+builder.add_edge("assign_c", END)
+
+graph = builder.compile()
+assert graph.invoke({"score": 95, "grade": ""})["grade"] == "A"
+assert graph.invoke({"score": 72, "grade": ""})["grade"] == "B"
+assert graph.invoke({"score": 40, "grade": ""})["grade"] == "C"
+```
+
+### 12.5 Counter loop
+
+Every cycle needs a termination condition. Here, the conditional edge loops back
+to `increment` until the count reaches five.
+
+```python
+class CounterState(TypedDict):
+    count: int
+
+
+def increment(state: CounterState) -> dict:
+    return {"count": state["count"] + 1}
+
+
+def should_continue(state: CounterState) -> str:
+    return "continue" if state["count"] < 5 else "stop"
+
+
+builder = StateGraph(CounterState)
+builder.add_node("increment", increment)
+builder.add_edge(START, "increment")
+builder.add_conditional_edges(
+    "increment",
+    should_continue,
+    {"continue": "increment", "stop": END},
+)
+
+graph = builder.compile()
+assert graph.invoke({"count": 0})["count"] == 5
+```
+
+### 12.6 Mock model-tool loop
+
+This has the same control-flow shape as a ReAct agent: the model requests work,
+the tool writes its result into state, and the model runs again to answer. The
+`tool_result` check prevents an infinite tool loop.
+
+```python
+class AgentState(TypedDict):
+    request: str
+    tool_result: str
+    answer: str
+
+
+def model(state: AgentState) -> dict:
+    if state["tool_result"]:
+        return {"answer": f"The calculated result is {state['tool_result']}."}
+    if "calculate" not in state["request"].lower():
+        return {"answer": "No calculation was requested."}
+    return {}
+
+
+def choose_next_step(state: AgentState) -> str:
+    if state["answer"]:
+        return "finish"
+    if "calculate" in state["request"].lower() and not state["tool_result"]:
+        return "use_calculator"
+    return "finish"
+
+
+def calculator(state: AgentState) -> dict:
+    return {"tool_result": "42"}
+
+
+builder = StateGraph(AgentState)
+builder.add_node("model", model)
+builder.add_node("calculator", calculator)
+builder.add_edge(START, "model")
+builder.add_conditional_edges(
+    "model",
+    choose_next_step,
+    {"use_calculator": "calculator", "finish": END},
+)
+builder.add_edge("calculator", "model")
+
+graph = builder.compile()
+result = graph.invoke(
+    {"request": "Please calculate the answer.", "tool_result": "", "answer": ""}
+)
+assert result["answer"] == "The calculated result is 42."
+```

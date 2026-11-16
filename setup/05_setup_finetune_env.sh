@@ -54,8 +54,9 @@ step "Installing transformers / peft / trl / datasets / accelerate / bitsandbyte
 pip install --quiet \
     transformers peft trl datasets accelerate bitsandbytes \
     liger-kernel torchao \
-    python-dotenv matplotlib
-ok "Training stack installed."
+    python-dotenv matplotlib \
+    scikit-learn scipy
+ok "Training stack installed (scikit-learn/scipy are for ml_course/)."
 
 # ---- 4. Optional extras (lessons skip them if missing) ----------------------
 step "Trying optional extras..."
