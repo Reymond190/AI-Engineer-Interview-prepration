@@ -41,6 +41,9 @@ finetune_course/outputs/
 # ml_course logs
 ml_course/outputs/
 
+# inference_course measurements and logs
+inference_course/outputs/
+
 # Tool caches / editors
 .ruff_cache/
 .mypy_cache/

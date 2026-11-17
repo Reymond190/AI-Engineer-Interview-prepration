@@ -72,6 +72,14 @@ python finetune_course/run_all.py [05 07] [--full] [--save f.json]     # WSL, en
 python ml_course/run_all.py [09 11] [--full] [--save f.json]     # WSL, env ft
 ```
 
+### `inference_course/` (LLM inference optimization: the user's chosen specialization)
+Roadmap in its README: Phase 0 fundamentals (00 GPU roofline, 01 decode/KV math, 02 serving benchmark) is done; next are serving knobs (03–06), quantization (07–09), speculative decoding (10–11), Triton kernels (12–15) and a mini-engine capstone (16–17). Same conventions as `ml_course/` (`kv()` lines, effect predicates in `run_all.py`, measured numbers in `INTERVIEW_GUIDE.md`). Env: WSL conda `ft`.
+
+- Machine state matters: GPU lessons need vLLM **stopped**; serving lessons need it **up** and print `[skip]` otherwise (`run_all.py` reports those checks as skipped).
+- Lesson 00 writes `outputs/gpu.json` (measured bandwidth/TFLOPs); later predictions use it, not spec sheets.
+- `common.weight_bytes()` reads exact per-tensor bytes from safetensors headers in the HF cache. Bytes per decode step = layers + lm_head (not the embedding table, vision or MTP).
+- WSL has 7.2 GiB of RAM: vLLM can't mmap the 11 GB `qwen35` checkpoint, so serving runs used `serve.sh qwen3` until `.wslconfig` gets more memory/swap.
+
 ### `agent_lab/` (parallel sandboxed agents)
 LangGraph orchestrator: `plan → Send fan-out to N solvers → verify → decide (retry|report)`. See `agent_lab/README.md`.
 
